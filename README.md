@@ -1,2 +1,2 @@
 # Passive_Dynamic_Walker
-Clear and easy way of simulating a passive dynamic walker (PDW) model.
+Clear and easy way of simulating a passive dynamic walker (PDW) model derived and exectured using MATLAB.
