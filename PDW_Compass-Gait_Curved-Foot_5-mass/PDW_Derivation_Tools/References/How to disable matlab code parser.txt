@@ -1,0 +1,22 @@
+Code parsing becomes an issue when matlab is trying to analyze the code that is
+way too large, holding a vast number of variables in one file.
+This can cause freezing of the MATALB editor.
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Disable Code Parser  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Enter the follwing two commands into the MATLAB command window:
+
+com.mathworks.services.Prefs.setBooleanPref('CodeParserServiceOn',false)
+com.mathworks.services.Prefs.setIntegerPref('CodeParserServiceFileSizeLimit',50)
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Enable Code Parser  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+Enter the follwing two commands into the MATLAB command window:
+
+com.mathworks.services.Prefs.setBooleanPref('CodeParserServiceOn',true)
+com.mathworks.services.Prefs.setIntegerPref('CodeParserServiceFileSizeLimit',4000)

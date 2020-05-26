@@ -1,0 +1,16 @@
+Disable code parser
+
+com.mathworks.services.Prefs.setBooleanPref('CodeParserServiceOn',false)
+
+com.mathworks.services.Prefs.setIntegerPref('CodeParserServiceFileSizeLimit',50)
+
+
+
+
+
+
+Enable
+
+com.mathworks.services.Prefs.setBooleanPref('CodeParserServiceOn',true)
+
+com.mathworks.services.Prefs.setIntegerPref('CodeParserServiceFileSizeLimit',4000)
