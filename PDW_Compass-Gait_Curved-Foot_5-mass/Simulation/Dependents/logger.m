@@ -320,12 +320,10 @@ classdef (ConstructOnLoad = false) logger < handle
         %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
         
 
-        function delete(obj, print_out)
+        function delete(obj)
             % Object destructor for logger object
             % This method runs when the object is being deleted from memory
-            if print_out
-                obj.fatal(sprintf("Deleting logger '%s' ...", obj.name));
-            end
+            obj.debug(sprintf("Deleting logger '%s' ...", obj.name));
         end
         
         

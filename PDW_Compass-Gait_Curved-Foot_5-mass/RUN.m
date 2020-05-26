@@ -24,14 +24,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%  Setup Stripts and Utilities  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Mapping directories
 if ~setup()
-   fprintf(2, '\nFailed to setup PDW simulation! Check sub-directories.\n')
    return 
 end
 
 % Setting up message logger object
 global log
-log = logger(false, true);
+log = logger();
+log.show_time = true;
+log.show_ms   = true;
 
 
 
@@ -167,7 +169,7 @@ p.walker.animation.ms_mul = 50;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %Start Simulation Timer
 tic
-log.info('Simulation started ...')
+log.info('Simulation started')
 log.info(sprintf('Number of strides: %i', p.sim.total_strides))
 log.info(sprintf('Estimated run duration: %.2fs', (0.2452*p.sim.total_strides + 4.6282)*1.05))
 
@@ -206,28 +208,29 @@ function [success] = setup()
     try
         clc			% Clear the command window
         close all	% Close all open figures and plots
-%         clear all   % Clear all variables in the workspace
+        clear all   % Clear all variables in the workspace
 
-        % Reset the path definition for adn add current mfile path
+        % Reset the path definitions
         path(pathdef); 
-        addpath(genpath(mfilename));
         
-        paths = ["Simulation", "Simulation\Dependents", "Utility"];
+        % Adding all needed paths
+        addpath(genpath(mfilename));
+        paths = ["Simulation", "Dependents", "Utility"];
         for p = 1 : length(paths)
              % Check if referenced directories exist
             if ~exist(paths(p), 'dir')
+                fprintf(2, "Failed to map the following directory path: '%s'\n\n", paths(p))
                 success = false;
                 return
             end
             
             % Add directory to path reference
-            addpath(genpath(paths(p)));
+            addpath(genpath(char(paths(p))));
         end
         
         success = true;
     catch e
-        fprintf(2, '\nFailed to set up simuilation!\n')
-        fprintf(2, 'Exception: %s\n\n', e.message)
+        fprintf(2, "\n\nFailed to set up simulation. Exception: %s\n\n", e.message)
         success = false;
     end
 end

@@ -131,7 +131,7 @@ for stride = 1 : p.sim.total_strides
     % Incrementing and loggin step number
     results.sim.step                    = results.sim.step + 1;
     results.sim.steps(results.sim.step) = results.sim.step;
-    log.info(sprintf('Stride: %i - Step: %i - Left Stance\n', stride, results.sim.step))
+    log.info(sprintf('Stride: %i - Step: %i - Left Stance', stride, results.sim.step))
     
     
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -164,7 +164,7 @@ for stride = 1 : p.sim.total_strides
     % Incrementing and loggin step number
     results.sim.step                    = results.sim.step + 1;
     results.sim.steps(results.sim.step) = results.sim.step;  
-    log.info(sprintf('Stride: %i - Step: %i - Right Stance\n', stride, results.sim.step))
+    log.info(sprintf('Stride: %i - Step: %i - Right Stance', stride, results.sim.step))
     
     % Switch Angular Position and Velocity References
     q  = [q(2, end); q(1, end)];
