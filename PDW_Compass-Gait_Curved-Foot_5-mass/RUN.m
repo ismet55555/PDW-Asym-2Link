@@ -14,6 +14,7 @@
 % TODO ...
 %
 % Go back and do left , right, per step energy
+% Decide on saved parameters
 % Finish per step plots
 % Per step 
 %   - overlap plot
