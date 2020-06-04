@@ -81,6 +81,8 @@ results.collision.heel.all.right.qd_post    = [];
 
 results.other.left_right.hip_height = struct;
 results.other.all.hip_height.data   = [];
+results.other.left  = struct;
+results.other.right = struct;
 
 
 % Failure diagnostics
@@ -92,8 +94,8 @@ results.fail.phase         = -1;
 
 
 % Step length per walker ste
-results.step_length.left  = [];       
-results.step_length.right = [];
+left_step_length  = [];       
+right_step_length = [];
 
 
 % Flag for when simulatin has stopped (Once it becomes true code will stop)
@@ -154,7 +156,7 @@ for stride = 1 : p.sim.total_strides
         = gContact('L', p, q(1,end), q(2,end), rL, rR, rLb, rRb, LL, LR);
     
 	% Computing effective leg length
-    results.step_length.left(stride) = abs( (LL*sin(q(1, end) + d_a *sin(pi - (pi/2 - q(1, end)) - theta_a ) ))...
+    left_step_length(stride) = abs( (LL*sin(q(1, end) + d_a *sin(pi - (pi/2 - q(1, end)) - theta_a ) ))...
                                           - (LR*sin(q(2, end) + d_a2*sin(pi - (pi/2 - q(2, end)) - theta_a2) )));
 
 						
@@ -188,7 +190,7 @@ for stride = 1 : p.sim.total_strides
         = gContact('R', p, q2(1,end), q2(2,end), rR, rL, rRb, rLb, LR, LL);
 
 	% Computing effective leg length
-    results.step_length.right(stride) = abs( (LR*sin(q2(1, end) + d_a *sin(pi - (pi/2 - q2(1, end)) - theta_a ) ))...
+    right_step_length(stride) = abs( (LR*sin(q2(1, end) + d_a *sin(pi - (pi/2 - q2(1, end)) - theta_a ) ))...
                                            - (LL*sin(q2(2, end) + d_a2*sin(pi - (pi/2 - q2(2, end)) - theta_a2) )) );
 
     
@@ -205,6 +207,12 @@ for stride = 1 : p.sim.total_strides
 		results.sim.success = true;   
 	end
 end
+
+% Compute Basic Statistics
+% Step Length
+[results.other.left]  = basic_statistics(results.other.left,  "step_length", left_step_length);
+[results.other.right] = basic_statistics(results.other.right, "step_length", right_step_length);
+
 
 % Save time length of simulation
 results.sim.duration = results.sim.time(end);

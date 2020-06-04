@@ -42,7 +42,7 @@ log.show_ms   = true;
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Parameters  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.dt			= 0.001;			% Simulation time step (s)
-p.sim.total_strides = 5;				% Total Steps Taken
+p.sim.total_strides = 10;				% Total Steps Taken
 p.sim.g             = 9.80665;			% Gravity (m/s^2)
 p.sim.theta         = asin(8.55/144);	% Walking ramp Angle (rad)
 
@@ -82,7 +82,7 @@ p.walker.right.c1R = 1/3;
 % Foot Definition Equation:  footRadius = rLa + rLb*angle
 % Left Foot (m)
 p.walker.left.rLa = 1/3;     
-p.walker.left.rLb = -0.05;
+p.walker.left.rLb = -0.00;
 p.walker.left.dL  = 0.00;
 
 % Right Foot (m)
@@ -135,8 +135,8 @@ p.walker.init.qd2 = -0.039885255927632;
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Display and Output  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.output.animation		= false;  % Simulation Animation
-p.sim.output.energy         = true;  % Energy Plot
-p.sim.output.force			= true;  % Kinetic/Forces Plot
+p.sim.output.energy         = false;  % Energy Plot
+p.sim.output.force			= false;  % Kinetic/Forces Plot
 p.sim.output.step_length	= false;  % Step Length Plot
 p.sim.output.limit_cycle	= false;  % Limit Cycle Plot
 p.sim.output.angle			= false;  % Leg and Hip Angle Plot

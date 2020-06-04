@@ -59,9 +59,37 @@ saved_parameters.duration       = results.sim.duration;
 saved_parameters.fail           = results.fail.fail;
 saved_parameters.phase          = results.fail.phase;
 
+
 % Results - Derived
+% Energy
+% TODO: Catch first step fail
+saved_parameters.energy_left_total_mean = results.energy.left_right.total.mean(1:2:end);
+saved_parameters.energy_left_KE_mean    = results.energy.left_right.KE.mean(1:2:end);
+saved_parameters.energy_left_PE_mean    = results.energy.left_right.PE.mean(1:2:end);
+
+saved_parameters.energy_right_total_mean = results.energy.left_right.total.mean(2:2:end);
+saved_parameters.energy_right_KE_mean    = results.energy.left_right.KE.mean(2:2:end);
+saved_parameters.energy_right_PE_mean    = results.energy.left_right.PE.mean(2:2:end);
+
+
+% Forces
+% TODO
+
+
+% Other
+saved_parameters.left_step_length_mean    = results.other.left.step_length.mean;
+saved_parameters.right_step_length_mean   = results.other.right.step_length.mean;
+saved_parameters.left_step_length_median  = results.other.left.step_length.median;
+saved_parameters.right_step_length_median = results.other.right.step_length.median;
+
+
+
 % TODO
 % Power per step
+
+
+% right_step_length
+
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
