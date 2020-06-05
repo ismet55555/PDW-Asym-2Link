@@ -1,6 +1,8 @@
 function [p, results] = Walker_Control(p)
-% Full PDW Dynamics Model
-% This model describes a passive dynamic walker in terms of each individual legs
+% WALKER_CONTROL: This script includes the main loop that iterates over each walker step.
+%                 Each loop is a stride, that calls left and right dynamics, deriving
+%                 various walker parameters.
+
 
 % Message logger object reference
 global log
@@ -46,6 +48,7 @@ LR = p.walker.right.LR;
 
 
 % Creating the results variables
+log.debug("Pre-allocating and initializing results ...")
 results.sim.time   = [];
 
 results.motion.left               = struct;
@@ -120,8 +123,6 @@ q  = [p.walker.init.q1;
 qd = [p.walker.init.qd1;
       p.walker.init.qd2];
 
-  
-
  
 % Loop the predetrimined number of strides
 log.info('Starting walker step sequence ...')
@@ -144,6 +145,7 @@ for stride = 1 : p.sim.total_strides
         
     %Check whether walker is still walking
     if(results.sim.stopped)
+        log.debug("Walker has failed in left stance")
         break;
 	end
        
@@ -177,6 +179,7 @@ for stride = 1 : p.sim.total_strides
 
     %Check whether walker is still walking
     if(results.sim.stopped)
+        log.debug("Walker has failed in right stance")
         break;
     end
     
@@ -208,13 +211,15 @@ for stride = 1 : p.sim.total_strides
 	end
 end
 
+% Save time length of simulation
+results.sim.duration = results.sim.time(end);
+
+
 % Compute Basic Statistics
+log.debug("Calculating basic statistics for selected parameters ...")
 % Step Length
 [results.other.left]  = basic_statistics(results.other.left,  "step_length", left_step_length);
 [results.other.right] = basic_statistics(results.other.right, "step_length", right_step_length);
 
-
-% Save time length of simulation
-results.sim.duration = results.sim.time(end);
 
 end

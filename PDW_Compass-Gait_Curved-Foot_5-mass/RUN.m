@@ -11,14 +11,16 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Description  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% TODO ...
+% This model simulates a passive dynamic walker model (PDW), walking on
+% level or angled ground. The walker can walk on any angle slope.
 %
-% Go back and do left , right, per step energy
-% Decide on saved parameters
-% Finish per step plots
-% Per step 
-%   - overlap plot
-%   - averages of interppolated?  dashed line...
+% Please see below to overview which options and paramters are avilable and
+% can be changed
+%
+% TODO:
+%   Per step 
+%       - overlap plot
+%       - averages of interppolated?  dashed line...
 
 
 
@@ -33,16 +35,16 @@ end
 % Setting up message logger object
 global log
 log = logger();
-log.show_time = true;
-log.show_ms   = true;
-
+log.show_time     = true;
+log.show_ms       = true;
+log.default_level = 2; 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Parameters  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.dt			= 0.001;			% Simulation time step (s)
-p.sim.total_strides = 10;				% Total Steps Taken
+p.sim.total_strides = 4;				% Total Steps Taken
 p.sim.g             = 9.80665;			% Gravity (m/s^2)
 p.sim.theta         = asin(8.55/144);	% Walking ramp Angle (rad)
 
@@ -59,7 +61,7 @@ p.walker.left.ms1L = 0.050000;	% Lower left shank
 
 % Right Leg (kg)
 p.walker.right.mt1R = 1.000000;  % Upper right thigh 
-p.walker.right.ms1R = 0.050000;  % Lower right shank 
+p.walker.right.ms1R = 0.050000;  % Lower right shan                k 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -172,7 +174,6 @@ p.walker.animation.ms_mul = 50;
 tic
 log.info('Simulation started')
 log.info(sprintf('Number of strides: %i', p.sim.total_strides))
-log.info(sprintf('Estimated run duration: %.2fs', (0.2452*p.sim.total_strides + 4.6282)*1.05))
 
 %Calling Walker_Control function to start simulation
 [p, results] = Walker_Control(p);
@@ -180,7 +181,7 @@ log.info(sprintf('Estimated run duration: %.2fs', (0.2452*p.sim.total_strides + 
 % Log how long it took to run the single simulation run
 results.sim.run_time = toc;
 log.info('Simulation complete')
-log.info(sprintf('Run duration: %4.2fs', results.sim.run_time))
+log.info(sprintf('Simulation duration: %4.2fs', results.sim.run_time))
 
 % Generating a report
 % TODO: Option to save formatted report to text file
@@ -192,7 +193,7 @@ plot_results(p, results)
 
 %Saving Simulation Data
 log.info('Saving simulation data to file ...');
-save_parameters(p, results)
+save_parameters(p, results, 1, 99999)
 
 log.info('Simulation run complete')
 

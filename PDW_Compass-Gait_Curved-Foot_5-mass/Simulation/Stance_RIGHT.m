@@ -1,5 +1,7 @@
 function [q, qdp, p, results] = Stance_RIGHT(q, qd , p, results)
-%Right Stance (Right foot is on ground)
+% STANCE_RIGHT: Computes all derived parameters during 
+%               RIGHT stance (right foot is on ground)
+
 
 % Message logger object reference
 global log
@@ -43,6 +45,7 @@ ms_mul = p.walker.animation.ms_mul;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%    Creating Foot Shape Rim (Curve)    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Right Stance - Creating left foot shape ...")
 % Define Left Foot radii (Stance Foot)
 rL = zeros(1, 10000);
 rL(1) = rLa + rLb*q(1, end);
@@ -67,6 +70,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%    Geometry Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Right Stance - Calculating initial walker geometery paramters ...")
 [psi, psi2, d_a, phi, theta_a, d_a2, phi2, theta_a2, hip_height(1)] ...
     = gContact('R', p, q(1,end), q(2,end), rR(1), rL(1), rRb, rLb, LR, LL);
 
@@ -82,6 +86,7 @@ time(1)		= 0;	 % Initial stance phase time
 count		= 2;
 
 % Keep looping as long as the lowest point of the foot is above the ramp
+log.debug("Right Stance - Starting simulation loop ...")
 while((hip_height(count - 1) - LL*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(2, count - 1))) > ramp) 
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -164,6 +169,7 @@ while((hip_height(count - 1) - LL*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(2
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %Check if the i exceeds iteration threshhold for gait phase 
     if count > 25000
+        log.warning("Right Stance - Walker simulation exceeded 25000 iterations")
         results.fail.too_long  = true;
         results.sim.stopped    = true;
         break;
@@ -171,6 +177,7 @@ while((hip_height(count - 1) - LL*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(2
 	
 	% Check if walker fell forward
     if q(1, count - 1) < -pi/2 + pi/6
+        log.warning("Right Stance - Walker fell forward")
         results.fail.fell_forward = true;
         results.sim.stopped       = true;
         break;
@@ -178,14 +185,17 @@ while((hip_height(count - 1) - LL*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(2
 	
 	% Check if walker fell backward
     if q(1, count - 1) > (pi - theta) - pi/6
+        log.warning("Right Stance - Walker fell backward")
         results.fail.fell_backward = true;
         results.sim.stopped        = true;
         break;
     end
 end
+log.debug("Right Stance - Simulation loop ended")
 
 % Check if model ran few simuilation results.sim.step 
 if(length(q) < 20)
+    log.warning(sprintf("Right Stance - Walker simulation ended after only %i iterations", length(q)))
     results.fail.tripped = true;
     results.sim.stopped  = 1;
 end
@@ -206,6 +216,8 @@ Ry(1)         = [];
 rL(rL == 0) = [];
 rR(rR == 0) = [];
 
+
+log.debug("Right Stance - Organizing and saving derived parameters ...")
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%    Save Leg Angular Dynamics    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -286,6 +298,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%    Simulation Animation Display    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.animation)
+    log.debug("Right Stance - Showing walker simulation animation ...")
     try
        % Probe to see if animtion figure handle exists
        p.sim.figure_handles.animation;
@@ -434,6 +447,8 @@ if(p.sim.output.animation)
 			p.sim.output.print_frame_index = p.sim.output.print_frame_index + 1;
         end
     end
+else
+    log.debug("Right Stance - Walker simulation animation skipped")
 end
 
 
@@ -441,6 +456,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%    Collision Event Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%      Right Stance, Heel Strike     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Right Stance - Calculating collision event (heel strike) ...")
+
 q1  = q(1, end);
 q1d = qd(1, end);
 q2  = q(2, end);
@@ -467,6 +484,8 @@ q = q(:, end);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%    Save Collision Parameters    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Right Stance - Organizing and saving collision event parameters ...")
+
 % ----------------------------  Store Cummalative Data  ----------------------------------
 results.collision.heel.all.left.time_abs = [results.collision.heel.all.left.time_abs, results.sim.time(end)];
 results.collision.heel.all.left.q        = [results.collision.heel.all.left.q,        q(2, end)];

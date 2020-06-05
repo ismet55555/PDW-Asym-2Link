@@ -1,8 +1,7 @@
 function plot_results(p, results)
-%UNTITLED8 
-%   Summary of this function goes here
-%   Detailed explanation goes here
-
+% PLOT_RESULTS: This script takes all model derived paramters and creates
+%               plots of those paramters. 
+%               Results area only shown for specifies plots.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

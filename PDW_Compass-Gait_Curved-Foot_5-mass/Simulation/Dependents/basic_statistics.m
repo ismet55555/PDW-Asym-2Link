@@ -1,6 +1,6 @@
 function [struct] = basic_statistics(struct, label, data)
-%BASIC_STATISTICS Summary of this function goes here
-%   Detailed explanation goes here
+% BASIC_STATISTICS: This is a utility script that computes basic statistic
+%                   for the entered struct field
 
     % Basic Statistics
     struct.(label).mean   = mean(data);
