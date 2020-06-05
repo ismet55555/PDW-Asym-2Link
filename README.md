@@ -1,4 +1,4 @@
-<h1 align="center">Passive Dynamic Walker (PDW)<br/>Compass Gait<br/>Variable Foot Shape</h1>
+<h1 align="center">Passive Dynamic Walker (PDW)<br/>Compass Gait (2-Link)<br/>Variable Foot Shape</h1>
 
 Intro sentance here.....
 
