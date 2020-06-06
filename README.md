@@ -1,12 +1,15 @@
-<h1 align="center">Passive Dynamic Walker (PDW)<br/>Compass Gait (2-Link)<br/>Variable Foot Shape</h1>
+<h1 align="center">Passive Dynamic Walker (PDW)<br/>Compass Gait (2-Link)<br/>5-mass<br/>Variable Foot Shape</h1>
 
+![PDW Demo Gif](misc/PDW_demo.gif)
 
-
-A passive dynamic walker (PDW) is a biped robot that does not draw energy from any supply (ie. batteries, gasoline, etc) and only relies on the potential energy of walking down a decline.
+A passive dynamic walker (PDW) is a biped robot that does not draw energy from any supply (ie. batteries, gasoline, etc) and only relies on the potential energy of walking down a decline. It fundementally represents a walking human as seen from the side (sagital view), while the upper body is represented as a larger hip mass.
 
 This PDW is a so-called compass gait, or 2-link, walking model, in that there are only two effective linkages representing the walker's system.  Essentially, this compass gait model is a inverted double-pendulum rotating about the ground contact.
 
-In addition this PDW model offers a way to change
+While typical biped simulations rely on symmetrical leg properties such as mass and mass position, this PDW model allows the masses to be asymmetrical and to be distributed any way along the legs.  
+
+In addition in this model it is possible to change each foot shape such that the walker rolls over its feet in a variety different ways.
+
 
 
 ## :eyeglasses: Overview
