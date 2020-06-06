@@ -1,4 +1,5 @@
-<h1 align="center">Passive Dynamic Walker (PDW)<br/>Compass Gait (2-Link)<br/>5-mass<br/>Variable Foot Shape</h1>
+<h1 align="center">Passive Dynamic Walker (PDW) Simulation Model<br/>Compass Gait (2-Link)<br/>5-mass<br/>Variable Foot Shape</h1>
+<h2 align="center">Compass Gait (2-Link)<br/>5-mass<br/>Variable Foot Shape</h2>
 
 <p align="center"><img src="misc/PDW_Demo.gif" height="450"/></p>
 
