@@ -1,8 +1,7 @@
 function plot_results(p, results)
-%UNTITLED8 
-%   Summary of this function goes here
-%   Detailed explanation goes here
-
+% PLOT_RESULTS: This script takes all model derived paramters and creates
+%               plots of those paramters. 
+%               Results area only shown for specifies plots.
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -86,6 +85,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Energy    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.energy)
+    % PDW Energy Over Time
     p.sim.figure_handles.energy_all = figure('Name' ,"PDW: Energy Over Time", ...
                                               'NumberTitle','off');
     set(gcf, 'color', 'w');
@@ -104,22 +104,41 @@ if(p.sim.output.energy)
     box on
     
     
-    
-    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % PDW Energy Per Step
     p.sim.figure_handles.energy_per_step = figure('Name' ,"PDW: Energy Per Step", ...
                                               'NumberTitle','off');
     set(gcf, 'color', 'w');
     hold on
     
-    for i = 1 : length(results.sim.steps)
+    
+    for i = 1 : 2 : length(results.sim.steps)
         x = results.energy.left_right.total.time{i};
         y = results.energy.left_right.total.data{i};
-        plt = plot(x, y, '-k','LineWidth', 1);
+        plt = plot(x, y, '-r','LineWidth', 1);
         plt.Color(4) = 0.4;      
         
         x = results.energy.left_right.PE.time{i};
         y = results.energy.left_right.PE.data{i};
-        plt = plot(x, y, '-m','LineWidth', 1);
+        plt = plot(x, y, '-r','LineWidth', 1);
+        plt.Color(4) = 0.3;        
+        
+        x = results.energy.left_right.KE.time{i};
+        y = results.energy.left_right.KE.data{i};
+        plt = plot(x, y, '-r','LineWidth', 1);
+        plt.Color(4) = 0.3;
+    end
+    
+
+    for i = 2 : 2 : length(results.sim.steps)
+        x = results.energy.left_right.total.time{i};
+        y = results.energy.left_right.total.data{i};
+        plt = plot(x, y, '-b','LineWidth', 1);
+        plt.Color(4) = 0.4;      
+        
+        x = results.energy.left_right.PE.time{i};
+        y = results.energy.left_right.PE.data{i};
+        plt = plot(x, y, '-b','LineWidth', 1);
         plt.Color(4) = 0.3;        
         
         x = results.energy.left_right.KE.time{i};
@@ -131,7 +150,7 @@ if(p.sim.output.energy)
     xlabel('Time (s)')
     ylabel('Energy (J)')
     title('PDW Energy Per Step')
-    legend('Total Energy', 'Potential Energy', 'Kinetic Energy')
+%     legend('Total Energy', 'Potential Energy', 'Kinetic Energy')
     set(get(gcf,'CurrentAxes'), 'FontName', 'Times New Roman', 'FontSize', 12);
     grid on
     box on
@@ -143,6 +162,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Forces    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.force)
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % PDW Forces Over Time
     p.sim.figure_handles.forces_time = figure('Name' ,"PDW: Ground Forces Over Time", ...
                                               'NumberTitle','off');
     set(gcf, 'color', 'w');
@@ -161,24 +182,27 @@ if(p.sim.output.force)
     box on
     
     
-    
+    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+    % PDW Forces Per Step
     p.sim.figure_handles.forces_time = figure('Name' ,"PDW: Ground Forces Per Step", ...
                                               'NumberTitle','off');
     set(gcf, 'color', 'w');
     hold on
     
+    % Left Stance
     for i = 1 : 2 :length(results.sim.steps)
         x = results.force.left.Rx.time{i};
         y = results.force.left.Rx.data{i};
-        plt = plot(x, y, '-m','LineWidth', 1);
+        plt = plot(x, y, '-r','LineWidth', 1);
         plt.Color(4) = 0.3;  
         
         x = results.force.left.Ry.time{i};
         y = results.force.left.Ry.data{i};
-        plt = plot(x, y, '-m','LineWidth', 1);
+        plt = plot(x, y, '-r','LineWidth', 1);
         plt.Color(4) = 0.3;  
     end
     
+    % Right Stance
     for i = 2 : 2 :length(results.sim.steps)
         x = results.force.right.Rx.time{i};
         y = results.force.right.Rx.data{i};
@@ -191,8 +215,6 @@ if(p.sim.output.force)
         plt.Color(4) = 0.3;  
     end
     
-    
-    legend('Rx','Ry')
     title('PDW Ground Reaction Forces Per Step')    
     xlabel('Time (s)')
     ylabel('Ground Force (N)')
@@ -200,8 +222,6 @@ if(p.sim.output.force)
     set(get(gcf,'CurrentAxes'), 'FontName', 'Times New Roman', 'FontSize', 12);
     grid on
     box on
-    
-    
 end
 
 
@@ -215,7 +235,7 @@ if (p.sim.output.step_length)
     set(gcf, 'color', 'w');
     hold on
 
-    plot(results.sim.strides,  results.step_length.left,  '--r', 'LineWidth', 1)
+    plot(results.sim.strides,  results.step_length.left, '--r', 'LineWidth', 1)
     plot(results.sim.strides, results.step_length.right, '--b', 'LineWidth', 1)
 
     plot(results.sim.strides, results.step_length.left, ...

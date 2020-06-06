@@ -1,6 +1,8 @@
 function [p, results] = Walker_Control(p)
-% Full PDW Dynamics Model
-% This model describes a passive dynamic walker in terms of each individual legs
+% WALKER_CONTROL: This script includes the main loop that iterates over each walker step.
+%                 Each loop is a stride, that calls left and right dynamics, deriving
+%                 various walker parameters.
+
 
 % Message logger object reference
 global log
@@ -46,6 +48,7 @@ LR = p.walker.right.LR;
 
 
 % Creating the results variables
+log.debug("Pre-allocating and initializing results ...")
 results.sim.time   = [];
 
 results.motion.left               = struct;
@@ -81,6 +84,8 @@ results.collision.heel.all.right.qd_post    = [];
 
 results.other.left_right.hip_height = struct;
 results.other.all.hip_height.data   = [];
+results.other.left  = struct;
+results.other.right = struct;
 
 
 % Failure diagnostics
@@ -92,8 +97,8 @@ results.fail.phase         = -1;
 
 
 % Step length per walker ste
-results.step_length.left  = [];       
-results.step_length.right = [];
+left_step_length  = [];       
+right_step_length = [];
 
 
 % Flag for when simulatin has stopped (Once it becomes true code will stop)
@@ -118,8 +123,6 @@ q  = [p.walker.init.q1;
 qd = [p.walker.init.qd1;
       p.walker.init.qd2];
 
-  
-
  
 % Loop the predetrimined number of strides
 log.info('Starting walker step sequence ...')
@@ -131,7 +134,7 @@ for stride = 1 : p.sim.total_strides
     % Incrementing and loggin step number
     results.sim.step                    = results.sim.step + 1;
     results.sim.steps(results.sim.step) = results.sim.step;
-    log.info(sprintf('Stride: %i - Step: %i - Left Stance\n', stride, results.sim.step))
+    log.info(sprintf('Stride: %i - Step: %i - Left Stance', stride, results.sim.step))
     
     
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -142,6 +145,7 @@ for stride = 1 : p.sim.total_strides
         
     %Check whether walker is still walking
     if(results.sim.stopped)
+        log.debug("Walker has failed in left stance")
         break;
 	end
        
@@ -154,7 +158,7 @@ for stride = 1 : p.sim.total_strides
         = gContact('L', p, q(1,end), q(2,end), rL, rR, rLb, rRb, LL, LR);
     
 	% Computing effective leg length
-    results.step_length.left(stride) = abs( (LL*sin(q(1, end) + d_a *sin(pi - (pi/2 - q(1, end)) - theta_a ) ))...
+    left_step_length(stride) = abs( (LL*sin(q(1, end) + d_a *sin(pi - (pi/2 - q(1, end)) - theta_a ) ))...
                                           - (LR*sin(q(2, end) + d_a2*sin(pi - (pi/2 - q(2, end)) - theta_a2) )));
 
 						
@@ -164,7 +168,7 @@ for stride = 1 : p.sim.total_strides
     % Incrementing and loggin step number
     results.sim.step                    = results.sim.step + 1;
     results.sim.steps(results.sim.step) = results.sim.step;  
-    log.info(sprintf('Stride: %i - Step: %i - Right Stance\n', stride, results.sim.step))
+    log.info(sprintf('Stride: %i - Step: %i - Right Stance', stride, results.sim.step))
     
     % Switch Angular Position and Velocity References
     q  = [q(2, end); q(1, end)];
@@ -175,6 +179,7 @@ for stride = 1 : p.sim.total_strides
 
     %Check whether walker is still walking
     if(results.sim.stopped)
+        log.debug("Walker has failed in right stance")
         break;
     end
     
@@ -188,7 +193,7 @@ for stride = 1 : p.sim.total_strides
         = gContact('R', p, q2(1,end), q2(2,end), rR, rL, rRb, rLb, LR, LL);
 
 	% Computing effective leg length
-    results.step_length.right(stride) = abs( (LR*sin(q2(1, end) + d_a *sin(pi - (pi/2 - q2(1, end)) - theta_a ) ))...
+    right_step_length(stride) = abs( (LR*sin(q2(1, end) + d_a *sin(pi - (pi/2 - q2(1, end)) - theta_a ) ))...
                                            - (LL*sin(q2(2, end) + d_a2*sin(pi - (pi/2 - q2(2, end)) - theta_a2) )) );
 
     
@@ -208,5 +213,13 @@ end
 
 % Save time length of simulation
 results.sim.duration = results.sim.time(end);
+
+
+% Compute Basic Statistics
+log.debug("Calculating basic statistics for selected parameters ...")
+% Step Length
+[results.other.left]  = basic_statistics(results.other.left,  "step_length", left_step_length);
+[results.other.right] = basic_statistics(results.other.right, "step_length", right_step_length);
+
 
 end

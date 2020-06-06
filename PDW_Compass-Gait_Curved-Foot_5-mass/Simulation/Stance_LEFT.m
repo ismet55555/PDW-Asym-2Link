@@ -1,5 +1,7 @@
 function [q, qdp, p, results] = Stance_LEFT(q, qd, p, results)
-% Left Stance (Left foot is on ground)
+% STANCE_LEFT: Computes all derived parameters during 
+%              LEFT stance (left foot is on the ground)
+
 
 % Message logger object reference
 global log
@@ -43,6 +45,7 @@ ms_mul = p.walker.animation.ms_mul;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%    Creating Foot Shape Rim (Curve)    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Left Stance - Creating left foot shape ...")
 % Define Left Foot radii (Stance Foot)
 rL = zeros(1, 10000);
 rL(1) = rLa + rLb*q(1, end);
@@ -67,6 +70,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%    Geometry Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Left Stance - Calculating initial walker geometery paramters ...")
 [psi, psi2, d_a, phi, theta_a, d_a2, phi2, theta_a2, hip_height(1)] ...
    = gContact('L', p, q(1,end), q(2,end), rL(1), rR(1), rLb, rRb, LL, LR);
 
@@ -82,6 +86,7 @@ time(1)		= 0;	 % Initial stance phase time
 count		= 2;
 
 % Keep looping as long as the lowest point of the foot is above the ramp
+log.debug("Left Stance - Starting simulation loop ...")
 while((hip_height(count - 1) -  LR*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(2, count - 1))) > ramp) 
 	
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -137,14 +142,12 @@ while((hip_height(count - 1) -  LR*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%   Energy Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % TODO: Allocate and remove -1 at the end
     [E_total(count), KE(count), PE(count)] = Energy_LEFT(q(:, end), qd(:, end), p, rL(count));
 
     
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%   Kinetics/Forces Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-    % TODO: Allocate and remove -1 at the end
     [Rx(count), Ry(count)] = Forces_LEFT(q(:,end), qd(: ,end), qdd(:, end), p, rL(count));
 
 
@@ -164,6 +167,7 @@ while((hip_height(count - 1) -  LR*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(
 	%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     %Check if the i exceeds iteration threshhold for gait phase 
     if(count > 25000)
+        log.warning("Left Stance - Walker simulation exceeded 25000 iterations")
         results.fail.too_long  = true;
         results.sim.stopped    = true;
         break;
@@ -171,6 +175,7 @@ while((hip_height(count - 1) -  LR*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(
 	
 	% Check if walker fell forward
     if (q(1,count-1)+theta < -pi/2)
+        log.warning("Left Stance - Walker fell forward")
         results.fail.fell_forward = true;
         results.sim.stopped       = true;
         break;
@@ -178,10 +183,19 @@ while((hip_height(count - 1) -  LR*cos(q(2, count - 1)) - d_a2*sin(theta_a2 - q(
 	
 	% Check if walker fell backward
     if (q(1,count-1)+theta > pi/2)
+        log.warning("Left Stance - Walker fell backward")
         results.fail.fell_backward = true;
         results.sim.stopped        = true;
         break;
 	end
+end
+log.debug("Left Stance - Simulation loop ended")
+
+% Check if model ran few simuilation steps 
+if(length(q) < 20)
+    log.warning(sprintf("Left Stance - Walker simulation ended after only %i iterations", length(q)))
+    results.fail.tripped = true;
+    results.sim.stopped = 1;
 end
 
 % Remove first entries, they are included within the last phase
@@ -200,12 +214,8 @@ Ry(1)         = [];
 rL(rL == 0) = [];
 rR(rR == 0) = [];
 
-% Check if model ran few simuilation steps 
-if(length(q) < 20)
-    results.sim.stopped = 1;
-end
 
-
+log.debug("Left Stance - Organizing and saving derived parameters ...")
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%    Save Leg Angular Dynamics    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -289,6 +299,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%    Simulation Animation Display    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.animation)
+    log.debug("Left Stance - Showing walker simulation animation ...")
     try
         % Probe to see if animtion figure handle exists
         p.sim.figure_handles.animation;
@@ -436,6 +447,8 @@ if(p.sim.output.animation)
 			p.sim.output.print_frame_index = p.sim.output.print_frame_index + 1;
 		end
     end
+else
+    log.debug("Left Stance - Walker simulation animation skipped")
 end
 
 
@@ -443,6 +456,8 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%    Collision Event Calculations    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%      Left Stance, Heel Strike     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Left Stance - Calculating collision event (heel strike) ...")
+
 q1  = q(1, end);
 q1d = qd(1, end);
 q2  = q(2, end);
@@ -469,6 +484,8 @@ q = q(:, end);
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%    Save Collision Parameters    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+log.debug("Left Stance - Organizing and saving collision event parameters ...")
+
 % ----------------------------  Store Cummalative Data  ----------------------------------
 results.collision.heel.all.right.time_abs = [results.collision.heel.all.right.time_abs, results.sim.time(end)];
 results.collision.heel.all.right.q        = [results.collision.heel.all.right.q,        q(2, end)];

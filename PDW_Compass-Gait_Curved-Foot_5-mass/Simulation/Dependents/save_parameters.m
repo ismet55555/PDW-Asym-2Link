@@ -1,9 +1,14 @@
-function save_parameters(p, results)
-%SAVE_PARAMETERS TODO Summary of this function goes here
-%                Detailed explanation goes here
-%
-% This only saves one single simulation run and its results
-% However will add on to an existing file 
+function save_parameters(p, results, start_stride, end_stride)
+% SAVE_PARAMETERS: This script specifies, organizes, and saves simulation
+%                  parameters to file
+
+
+% Specify starting and stopping steps for saving
+if end_stride > results.sim.stride
+    end_stride = results.sim.stride;
+end
+start_step = start_stride * 2;
+end_step   = end_stride   * 2;
 
 
 % Define the full path to the data file
@@ -20,11 +25,13 @@ saved_parameters.g              = p.sim.g;
 saved_parameters.dt             = p.sim.dt;
 saved_parameters.total_strides  = p.sim.total_strides;
 
-% INitial Conditions
+
+% Initial Conditions
 saved_parameters.q1             = p.walker.init.q1;
 saved_parameters.q2             = p.walker.init.q2;
 saved_parameters.qd1            = p.walker.init.qd1;
 saved_parameters.qd2            = p.walker.init.qd2;
+
 
 % Walker 
 saved_parameters.mh             = p.walker.hip.mh;
@@ -49,19 +56,61 @@ saved_parameters.rRb            = p.walker.right.rRb;
 saved_parameters.dR             = p.walker.right.dR;
 saved_parameters.LR             = p.walker.right.LR;
 		
+
 % Results - General
 saved_parameters.run_time       = results.sim.run_time; 
 saved_parameters.duration       = results.sim.duration; 
 saved_parameters.stopped        = results.sim.stopped;
 saved_parameters.success        = results.sim.success; 
 saved_parameters.stride         = results.sim.stride; 
+saved_parameters.step           = results.sim.step;
 saved_parameters.duration       = results.sim.duration; 
 saved_parameters.fail           = results.fail.fail;
 saved_parameters.phase          = results.fail.phase;
 
+
 % Results - Derived
-% TODO
-% Power per step
+saved_parameters.start_stride = start_stride;
+saved_parameters.end_stride   = end_stride;
+
+% Energy
+saved_parameters.energy_all_total_mean = mean(results.energy.left_right.total.mean(start_step:end_step));
+saved_parameters.energy_all_KE_mean    = mean(results.energy.left_right.KE.mean(start_step:end_step));
+saved_parameters.energy_all_PE_mean    = mean(results.energy.left_right.PE.mean(start_step:end_step));
+
+saved_parameters.energy_left_total_mean = mean(results.energy.left_right.total.mean(start_step:2:end_step));
+saved_parameters.energy_left_KE_mean    = mean(results.energy.left_right.KE.mean(start_step:2:end_step));
+saved_parameters.energy_left_PE_mean    = mean(results.energy.left_right.PE.mean(start_step:2:end_step));
+
+saved_parameters.energy_right_total_mean = mean(results.energy.left_right.total.mean(start_step + 1:2:end_step));
+saved_parameters.energy_right_KE_mean    = mean(results.energy.left_right.KE.mean(start_step + 1:2:end_step));
+saved_parameters.energy_right_PE_mean    = mean(results.energy.left_right.PE.mean(start_step + 1:2:end_step));
+
+% Forces
+saved_parameters.force_left_Rx_mean = mean(results.force.left.Rx.mean(start_step:2:end_step));
+saved_parameters.force_left_Ry_mean = mean(results.force.left.Ry.mean(start_step:2:end_step));
+saved_parameters.force_left_Rx_max  = mean(results.force.left.Rx.max(start_step:2:end_step));
+saved_parameters.force_left_Ry_max  = mean(results.force.left.Ry.max(start_step:2:end_step));
+saved_parameters.force_left_Rx_min  = mean(results.force.left.Rx.min(start_step:2:end_step));
+saved_parameters.force_left_Ry_min  = mean(results.force.left.Ry.min(start_step:2:end_step));
+
+saved_parameters.force_right_Rx_mean = mean(results.force.right.Rx.mean(start_step + 1:2:end_step));
+saved_parameters.force_right_Ry_mean = mean(results.force.right.Ry.mean(start_step + 1:2:end_step));
+saved_parameters.force_right_Rx_max  = mean(results.force.right.Rx.max(start_step + 1:2:end_step));
+saved_parameters.force_right_Ry_max  = mean(results.force.right.Ry.max(start_step + 1:2:end_step));
+saved_parameters.force_right_Rx_min  = mean(results.force.right.Rx.min(start_step + 1:2:end_step));
+saved_parameters.force_right_Ry_min  = mean(results.force.right.Ry.min(start_step + 1:2:end_step));
+
+
+% Other
+saved_parameters.left_step_length_mean    = results.other.left.step_length.mean;
+saved_parameters.left_step_length_median  = results.other.left.step_length.median;
+
+saved_parameters.right_step_length_mean   = results.other.right.step_length.mean;
+saved_parameters.right_step_length_median = results.other.right.step_length.median;
+
+
+% TODO: Power
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -73,7 +122,7 @@ parameters_format = "";
 headers_format    = "";
 for field = 1 : numel(field_names)
     headers_format    = strcat(headers_format,    "%s\t");
-    parameters_format = strcat(parameters_format, "%6.4f\t");
+    parameters_format = strcat(parameters_format, "%6.5f\t");
 end
 headers_format    = strcat(headers_format,    "\r\n");
 parameters_format = strcat(parameters_format, "\r\n");
@@ -88,6 +137,7 @@ headers = strings(size(field_names));
 headers = headers';
 
 % Add the file with headers if it does not exist yet
+% TODO: Create header if also file is empty
 if ~isfile(full_path)
     open_file = fopen(full_path, 'w');            % Create and open the new file
     fprintf(open_file, headers_format, headers);  % Add the headers
@@ -113,72 +163,6 @@ end
 open_file = fopen(full_path, 'a');                               % Open text file to save model data
 fprintf(open_file, parameters_format, saved_parameters_values);  % Write all parameter to text file
 fclose(open_file);                                               % Close text file
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-% Prepare specified parameters to save to file
-% saved_parameters = [theta, g, dt, total_steps, ...          % Simulation Settings
-%                     q(1,1), q(2,1), qd(1,1) ,qd(2,1), ...   % Initial Conditions
-%                     mh, ...                                 % Hip Mass
-%                     mt1L, ms1L, ...                         % Left Leg Massses
-%                     a1L, b1L, c1L, LL,rLa, rLb, dL, ...     % Left Leg Distances
-%                     mt1R, ms1R, ...                      	% Right Leg Massses
-%                     a1R, b1R, c1R, LR, rRa, rRb, dR ...     % Right Leg Distances
-%                     mean(EnergyStat(begin_index:end, 1)), mean(EnergyStat(begin_index:end, 1)), ...
-%                     mean(ForcesStat(begin_index:end, 1)), mean(ForcesStat(begin_index:end, 2)), ...
-%                     mean(ForcesStat(begin_index:end, 1)), mean(ForcesStat(begin_index:end, 2)), ...
-%                     mean(left_step_length(begin_index:end)), mean(right_step_length(begin_index:end)), ...
-%                     steps, successful];
-
-		
-
-
-% TODO:
-	% Elapsed Walker Simulation Time
-	% Specified Transient-Stable Transition Step
-	% Actual Transitent-Stable Transition Step (need metric)
-	% distance walked
-	% steps
-	% successfull
-	%
-	% filler symbol
-	%
-	% Total Energy Left Stance
-	% Total Energy Right Stance
-	% Total Energy Total
-	%
-	% 
-	% Force Mean, Std., Median, Min, Max for Left and Right
-	%
-	% Look into per step/side energy and/or forces
-	%
-	% Average Step Length - Left
-	% Average Step Length - Right
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 end
