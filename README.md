@@ -1,7 +1,7 @@
 <h1 align="center">Passive Dynamic Walker (PDW) Simulation Model</h1>
 <h2 align="center">Compass Gait (2-Link)<br/>5-mass<br/>Asymmetric<br/>Variable Foot Shape Radius</h2>
 
-<p align="center"><img src="misc/PDW_Demo.gif" height="450"/></p>
+<p align="center"><img src="misc/PDW_Demo.gif" width="450"/></p>
 
 
 A passive dynamic walker (PDW) is a biped robot that does not draw energy from any supply (ie. batteries, gasoline, etc) and only relies on the potential energy of walking down a decline. It fundementally represents a walking human as seen from the side (sagital view), while the upper body is represented as a larger hip mass.
