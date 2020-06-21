@@ -12,6 +12,23 @@ While typical biped simulations rely on symmetrical leg properties such as mass 
 
 In addition in this model it is possible to change each foot shape such that the walker rolls over its feet in a variety different ways.
 
+The result output of this simulation model yields raw data and visual plots that include:
+ - Kinetic, Potential, and Total Energy
+ - Ground Reaction Forces
+ - Leg Trajectory (Angular position, velocity, acceleration)
+ - Limit Cycle Plot
+ - Step Length Asymmetry'
+ - Collision event information
+ - and more ....
+
+
+---
+## :eyeglasses: Overview
+* [TODO](#todo)
+* [Author](#bust_in_silhouette-author)
+* [Licence](#licence)
+
+
 ---
 ### What is This Even Good For
 There are a few reasons why you would be interested in this walking simulation model
@@ -23,12 +40,8 @@ There are a few reasons why you would be interested in this walking simulation m
 
 
 
-## :eyeglasses: Overview
-* [TODO](#todo)
-* [Author](#bust_in_silhouette-author)
-* [Licence](#licence)
 
-
+---
 ## :thumbsup: Compatibility
 This PDW simulaton model was created and tested on MATLAB R2017b and R2018b on a Windows 10 operating system. Although this logger was created within those software versions and operating systems, it may work in other environments as well.
 
@@ -96,13 +109,13 @@ Each walker simulation run will result in a variety of results.
 
 ## Walker Parameters
 ### Masses and Mass Positions
-[TODO]
+This passive dynamic walker simulation model has the ability to be defined asymmetrically in its masses and mass positions along the walker's legs. There are two masses per leg, while one single mass defines the hip.  The two masses along each leg can be distributed in any way along the leg for each side.
 
-### Mass Positions
-[TODO]
+The paramters are defined as show in the figure below:
+<p align="center">[Insert Figure Here]</p>
 
 ### Foot Shape
-This model is unique because it is possible to alter the foot shape (or roll over shape) of either foot. The foot shape for this model can be defined as a radius around the walker's ankle as:
+This model is unique because it is possible to alter the foot shape (or roll over shape) of either foot. The foot shape for this model can be defined as a continous and variable radius around the walker's ankle as:
 
 <p align="center">radius<sub>foot</sub> = angle*A + B</p>
 
@@ -112,20 +125,66 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 
 <p align="center">[Insert Figure Here]</p>
 
+
 ---
 ## Run
-[TODO]
+There is not much to write in this section. To fire up the damn thang, just simply run `RUN.m`.
+When you do run the script the command window should look like something like this for a quick 4-stride successfull walker simulation run:
+```
+[18:59:26.188][INFO    ] : Simulation started
+[18:59:26.250][INFO    ] : Number of strides: 4
+[18:59:26.291][INFO    ] : Starting walker step sequence ...
+[18:59:26.302][INFO    ] : Stride: 1 - Step: 1 - Left Stance
+[18:59:29.611][INFO    ] : Stride: 1 - Step: 2 - Right Stance
+[18:59:33.124][INFO    ] : Stride: 2 - Step: 3 - Left Stance
+[18:59:33.616][INFO    ] : Stride: 2 - Step: 4 - Right Stance
+[18:59:33.933][INFO    ] : Stride: 3 - Step: 5 - Left Stance
+[18:59:34.231][INFO    ] : Stride: 3 - Step: 6 - Right Stance
+[18:59:34.553][INFO    ] : Stride: 4 - Step: 7 - Left Stance
+[18:59:34.984][INFO    ] : Stride: 4 - Step: 8 - Right Stance
+[18:59:35.371][INFO    ] : Simulation complete
+[18:59:35.373][INFO    ] : Simulation duration: 9.19s
+[18:59:35.375][INFO    ] : Plotting any specified plots ...
+[18:59:38.158][INFO    ] : Saving simulation data to file ...
+[18:59:38.225][INFO    ] : Simulation run complete
+```
+
+### Note on Logging Options
+This program utilizes a custom MATLAB logging add-on. Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize thise tools, visit the logger's page. In order to turn on any `Debug` level logging statments, in `RUN.m`, set  `log.default_level = 1`
 
 
 ---
 ## Changing Variables over Multiple Runs 
-### Subsequent Variable Changes
-- For statment
+In a lot of research and exploration related situations, you may be wanting to vary specific walker paramters over multiple runs. For example, you may want to see the effects on walker dynamics of moving a leg mass up the leg gradually with each simulation run. Fundementally, currently to accomplish this, you can alter the specific variable and repeatatly executing the following code block that is located in `RUN.m`. If you are running multiple and unsupervised runs of the simulatino model, it is advisted that all plotting and animation options are set to `false` (see above).
 
-### Parallel Variable Changes
-- parfor statment
+```MATLAB
+%Start Simulation Timer
+tic
+log.info('Simulation started')
+log.info(sprintf('Number of strides: %i', p.sim.total_strides))
 
+%Calling Walker_Control function to start simulation
+[p, results] = Walker_Control(p);
 
+% Log how long it took to run the single simulation run
+results.sim.run_time = toc;
+log.info('Simulation complete')
+log.info(sprintf('Simulation duration: %4.2fs', results.sim.run_time))
+
+% Plot specified result plots
+log.info('Plotting any specified plots ...');
+plot_results(p, results)
+
+%Saving Simulation Data
+log.info('Saving simulation data to file ...');
+save_parameters(p, results)
+
+log.info('Simulation run complete')
+```
+
+In order to change one variable gradually over a series of simulation runs, you may want to encompass the above block in a `for` loop, while changing parameters in the `p` struct variable at each iteration. If more than one variable is to be changed over multiple simulation, you may want to use nested `for` loops.
+
+However, for serious, heavy duty work, running a vast number of iterations over a many different variables, you may want to explore MATLAB's [Paralllel Processing Toolbox](https://www.mathworks.com/products/parallel-computing.html) , using a `parfor` loop. A simple example of a `parfor` loop can be seen [here](https://www.mathworks.com/help/parallel-computing/parfor.html;jsessionid=9134636eca3c6ac7057cc0779fe4).
 
 
 
