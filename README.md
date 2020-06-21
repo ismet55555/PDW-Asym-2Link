@@ -25,7 +25,7 @@ The result output of this simulation model yields raw data and visual plots that
 ---
 ## :eyeglasses: Overview
 * [What is This Even Good For](#grey_question-what_is_this_even_good_for)
-* [Compatibility](#thumbsup_Compatibility)
+* [Compatibility](#thumbsup-compatibility)
 * [Installation](#rocket_Installation)
 * [Simulation Options](#gear_Simulation_Options)
 * [Walker Parameters](#walker_Walker_Parameters)
