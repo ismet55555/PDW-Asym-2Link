@@ -24,15 +24,15 @@ The result output of this simulation model yields raw data and visual plots that
 
 ---
 ## :eyeglasses: Overview
-* [What is This Even Good For](#grey_question-what_is_this_even_good_for)
+* [What is This Even Good For](#grey-question-what-is-this-even-good-for)
 * [Compatibility](#thumbsup-compatibility)
-* [Installation](#rocket_Installation)
-* [Simulation Options](#gear_Simulation_Options)
-* [Walker Parameters](#walker_Walker_Parameters)
-* [Run](#arrow_forward_Run)
-* [Changing Variables over Multiple Runs](#control_knobs_Changing_Variables_over_Multiple_Runs)
-* [Citing This Work](#heavy_check_mark_Citing_This_Work)
-* [Author](#bust_in_silhouette-author)
+* [Installation](#rocket-installation)
+* [Simulation Options](#gear-simulation-options)
+* [Walker Parameters](#walker-walker-parameters)
+* [Run](#arrow-forward-run)
+* [Changing Variables over Multiple Runs](#control-knobs-changing-variables-over-multiple-runs)
+* [Citing This Work](#heavy-check-mark-citing-this-work)
+* [Author](#bust-in-silhouette-author)
 * [Licence](#licence)
 
 
