@@ -28,11 +28,11 @@ The result output of this simulation model yields raw data and visual plots that
 * [Compatibility](#thumbsup-compatibility)
 * [Installation](#rocket-installation)
 * [Simulation Options](#gear-simulation-options)
-* [Walker Parameters](#walker-walker-parameters)
-* [Run](#arrow-forward-run)
-* [Changing Variables over Multiple Runs](#control-knobs-changing-variables-over-multiple-runs)
-* [Citing This Work](#heavy-check-mark-citing-this-work)
-* [Author](#bust-in-silhouette-author)
+* [Walker Parameters](#walking-walker-parameters)
+* [Run](#arrow_forward-run)
+* [Changing Variables over Multiple Runs](#control_knobs-changing-variables-over-multiple-runs)
+* [Citing This Work](#heavy_check_mark-citing-this-work)
+* [Author](#bust_in_silhouette-author)
 * [Licence](#licence)
 
 
