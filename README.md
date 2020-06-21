@@ -29,10 +29,6 @@ There are a few reasons why you would be interested in this walking simulation m
 * [Licence](#licence)
 
 
-## :fast_forward: Quick Start
-TODO
-
-
 ## :thumbsup: Compatibility
 This PDW simulaton model was created and tested on MATLAB R2017b and R2018b on a Windows 10 operating system. Although this logger was created within those software versions and operating systems, it may work in other environments as well.
 
@@ -52,20 +48,54 @@ I would love to hear about usage on earlier or later MATLAB versions and other o
 
 
 ---
-## Setup Options
-### Simulation Settings
-[TODO]
+## Simulation Options
+All simulation based options are stored in the `p` struct variable in `sim`.
+For example, `p.sim.dt` will hold the simulation time step.
+
+### General Simulation Enviroment
+These settings are for the general simulation behavior.
+ - `p.sim.dt` - Time Step, dt (s) - The time beteen simulation iterations.
+ - `p.sim.total_strides` - Total Walker Strides - Specifies the goal of the walker. Unless the walker fails, at this number of strides the walker will stop walking.
+ - `p.sim.g` - Gravity Constant (m/s^2) - The gravity constant applied to the walker.
+ - `p.sim.theta` - Walking Ramp (rad) - The slope of the ramp on which the walker walks. Positive values is a decline, negative values is a incline.
 
 ### Initial Conditions
-[TODO]
+The walker's leg angular positions at the beginning of the simulation are:
+ - `p.sim.init.q1` - Stance Leg angular position (rad)
+ - `p.sim.init.q2` - Swing leg angular position (rad)
+ 
+The angular velocities at the beginning of the simulation are:
+ - `p.sim.init.qd1` - Stance Leg angular velocity (rad/s)
+ - `p.sim.init.qd2` - Swing leg angular velocity (rad/s)
 
-### Slope
-[TODO]
+**TIP**: _To find a set of stable initial conditions, you can itereate through different parameters, then pause the model at the beginning of the left stance phase, viewing stance and swing angular positions and velocities._
 
-### Asymmetry
-[TODO]
+### Simulation Output
+#### Plots and Animations
+Each simulation output run can produce a variety of output plots and animations.  The following options can be set to `true` if you would like to enable them. In order to turn them off, set them to `false`. The potional output plots are as follows. 
+ - `p.sim.output.animation` - When this is set, the animation will show the walker as it is being simulated in an animation.
+ - `p.sim.output.energy` - These plots will show the walker's kinetic, potential, and total energy over time. One plot for the entire simulation, and one per-step plot overlayed.
+ - `p.sim.output.force` - These plots will show the walker's ground reaction forces in the direction along (parallel) the ramp, `Rx`, and perpendicular to the ramp, `Ry`.  One plot for the entire simulation and one per-step plot overlayed.
+ - `p.sim.output.step_length` - This plot shows the step length of each step. This is particularly useful when specifying asymmteric walker parameters.
+ - `p.sim.output.limit_cycle` - This shows the limit cycle plot of the walker left and right leg. A limit cycle plot shows the relation ship of the leg's angular position (`q`) and angular velocity (`qd`)
+ - `p.sim.output.angle` - This option will output the angle over time and per-step for the walker's legs (`q`)
+ - `p.sim.output.anglular_vel` -  This option will output the angular velocity over time and per-step for the walker's legs (`qd`)
+ - `p.sim.output.angular_accel` - This option will output the angular acceleration over time and per-step for the walker's legs (`qdd`)
 
-### Masses
+**Note:** _If you would like to change any of the output plots to your need, you can do so by changing them in file `\Simulation\Dependents\plot_results.m`._
+**Note:** _If you are interested in an iteration of multiple simulation runs, it may be best to set all visual outputs to `false`._ 
+
+#### Raw Data
+Each walker simulation run will result in a variety of results. 
+ - `p.sim.output.result_output_filename` - The file in which the simulation data text will be stored. Each simulation run yields one row of information. This is `DATA.txt` by default, however can be changed. In general all information related to anything yielded by the simulation run will be stored in the `results` struct variable (More information on that is explained below).  A specified subset of `results` is automatically stored in a specified `DATA.txt` file. This file is made such that each row is one simulation run. You may add or remove the paramters saved into this file, by adjusting the file `\Simulation\Dependents\save_parameters.m`
+ - `p.sim.output.save_plots` - Saves any specified output plots. _(Under construction for now, however you can manually save each plot using the common `Save as ...`)_
+ - `p.sim.output.results_dir` - The directory into which the data text file will be saved.
+
+
+
+
+## Walker Parameters
+### Masses and Mass Positions
 [TODO]
 
 ### Mass Positions
@@ -88,16 +118,13 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 
 
 ---
-## Results
-### Animation
+## Changing Variables over Multiple Runs 
+### Subsequent Variable Changes
+- For statment
 
-### Plots
+### Parallel Variable Changes
+- parfor statment
 
-### File
-
----
-## Parallel Processing
-[TODO]
 
 
 
