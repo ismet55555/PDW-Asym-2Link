@@ -106,9 +106,14 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 ## :bust_in_silhouette: Author
 **Ismet Handžić** - GitHub: [@ismet55555](https://github.com/ismet55555)
 
-## Reference ##
-Different styles
-Latex entry (just include file?)
+## Citing This Work (Bibliography) ##
+If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
+- APA - TODO
+- MLA - TODO
+- Chicago - TODO
+- BibTeX (LaTeX) -TODO
+
+https://www.bibme.org/bibtex/website-citation
 
 ## Licence
 This project is licensed under the Apache 2.0 License - Please see the [LICENSE](LICENSE) file for details.
