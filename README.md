@@ -30,7 +30,7 @@ The result output of this simulation model yields raw data and visual plots that
 
 
 ---
-### What is This Even Good For
+### :grey_question: What is This Even Good For
 There are a few reasons why you would be interested in this walking simulation model
 - **Presentation** - It looks nice and would definetly look cool when showing off MATLAB animations.
 - **Walking Dyanmics Research** - If you are a researcher that is focused on walking dynamics analysis, this may be cool to mess with. The powerful about a computer simulation like this one is that you are able to quickly change walker paramters, and change them a lot, while finding interesting patterns.
@@ -61,7 +61,7 @@ I would love to hear about usage on earlier or later MATLAB versions and other o
 
 
 ---
-## Simulation Options
+## :gear: Simulation Options
 All simulation based options are stored in the `p` struct variable in `sim`.
 For example, `p.sim.dt` will hold the simulation time step.
 
@@ -83,7 +83,7 @@ The angular velocities at the beginning of the simulation are:
 
 **TIP**: _To find a set of stable initial conditions, you can itereate through different parameters, then pause the model at the beginning of the left stance phase, viewing stance and swing angular positions and velocities._
 
-### Simulation Output
+### Result Output
 #### Plots and Animations
 Each simulation output run can produce a variety of output plots and animations.  The following options can be set to `true` if you would like to enable them. In order to turn them off, set them to `false`. The potional output plots are as follows. 
  - `p.sim.output.animation` - When this is set, the animation will show the walker as it is being simulated in an animation.
@@ -107,7 +107,7 @@ Each walker simulation run will result in a variety of results.
 
 
 
-## Walker Parameters
+## :walking: Walker Parameters
 ### Masses and Mass Positions
 This passive dynamic walker simulation model has the ability to be defined asymmetrically in its masses and mass positions along the walker's legs. There are two masses per leg, while one single mass defines the hip.  The two masses along each leg can be distributed in any way along the leg for each side.
 
@@ -127,7 +127,7 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 
 
 ---
-## Run
+## :arrow_forward: Run
 There is not much to write in this section. To fire up the damn thang, just simply run `RUN.m`.
 When you do run the script the command window should look like something like this for a quick 4-stride successfull walker simulation run:
 ```
@@ -150,11 +150,11 @@ When you do run the script the command window should look like something like th
 ```
 
 ### Note on Logging Options
-This program utilizes a custom MATLAB logging add-on. Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize thise tools, visit the logger's page. In order to turn on any `Debug` level logging statments, in `RUN.m`, set  `log.default_level = 1`
+This program utilizes a custom [MATLAB logging add-on](https://github.com/ismet55555/Logging-For-MATLAB). Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize thise tools, visit the [logger's page](https://github.com/ismet55555/Logging-For-MATLAB). In order to turn on any `Debug` level logging statments, in `RUN.m`, set  `log.default_level = 1`
 
 
 ---
-## Changing Variables over Multiple Runs 
+## :control_knobs: Changing Variables over Multiple Runs 
 In a lot of research and exploration related situations, you may be wanting to vary specific walker paramters over multiple runs. For example, you may want to see the effects on walker dynamics of moving a leg mass up the leg gradually with each simulation run. Fundementally, currently to accomplish this, you can alter the specific variable and repeatatly executing the following code block that is located in `RUN.m`. If you are running multiple and unsupervised runs of the simulatino model, it is advisted that all plotting and animation options are set to `false` (see above).
 
 ```MATLAB
@@ -187,19 +187,19 @@ In order to change one variable gradually over a series of simulation runs, you 
 However, for serious, heavy duty work, running a vast number of iterations over a many different variables, you may want to explore MATLAB's [Paralllel Processing Toolbox](https://www.mathworks.com/products/parallel-computing.html) , using a `parfor` loop. A simple example of a `parfor` loop can be seen [here](https://www.mathworks.com/help/parallel-computing/parfor.html;jsessionid=9134636eca3c6ac7057cc0779fe4).
 
 
-
 ---
+## :heavy_check_mark: Citing This Work
+If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
+
+- **APA:** `Handzic, I. (n.d.). Ismet55555/Logging-For-MATLAB. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/Logging-For-MATLAB`
+- **MLA:** `Handzic, Ismet. “ismet55555/Logging-For-MATLAB.” Logger, GitHub, github.com/ismet55555/Logging-For-MATLAB.`
+- **Chicago:** - `Handzic, Ismet. "Ismet55555/Logging-For-MATLAB." Passive Dynamic Walker Compass Gait Variable Foot Simulation Model. June 6, 2020. Accessed <YEAR NUMBER>. https://github.com/ismet55555/Logging-For-MATLAB.`
+- **BibTeX (LaTeX):** - `@misc{handzic, title={ismet55555/Logging-For-MATLAB}, url={https://github.com/ismet55555/Logging-For-MATLAB}, journal={Logger}, publisher={GitHub}, author={Handzic, Ismet}}`
+
+
 ## :bust_in_silhouette: Author
 **Ismet Handžić** - GitHub: [@ismet55555](https://github.com/ismet55555)
 
-## Citing This Work (Bibliography) ##
-If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
-- APA - TODO
-- MLA - TODO
-- Chicago - TODO
-- BibTeX (LaTeX) -TODO
-
-https://www.bibme.org/bibtex/website-citation
 
 ## Licence
 This project is licensed under the Apache 2.0 License - Please see the [LICENSE](LICENSE) file for details.
