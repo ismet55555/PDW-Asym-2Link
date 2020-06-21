@@ -24,7 +24,7 @@ The result output of this simulation model yields raw data and visual plots that
 
 ---
 ## :eyeglasses: Overview
-* [What is This Even Good For](#grey_question-What_is_This_Even_Good_For)
+* [What is This Even Good For](#grey_question-what_is_this_even_good_for)
 * [Compatibility](#thumbsup_Compatibility)
 * [Installation](#rocket_Installation)
 * [Simulation Options](#gear_Simulation_Options)
