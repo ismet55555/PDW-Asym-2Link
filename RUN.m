@@ -39,7 +39,7 @@ log.default_level = 2;
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Parameters  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.dt			= 0.001;			% Simulation time step (s)
-p.sim.total_strides = 4;				% Total Steps Taken
+p.sim.total_strides = 30;				% Total Steps Taken
 p.sim.g             = 9.80665;			% Gravity (m/s^2)
 p.sim.theta         = asin(8.55/144);	% Walking ramp Angle (rad)
 
@@ -84,7 +84,7 @@ p.walker.left.dL  = 0.00;
 
 % Right Foot (m)
 p.walker.right.rRa = 1/3;
-p.walker.right.rRb = -0.05;
+p.walker.right.rRb = -0.00;
 p.walker.right.dR  = 0.00;
 
 
@@ -135,13 +135,13 @@ p.walker.init.qd2 = -0.039885255927632;
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Display and Output  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.output.animation		= false;  % Simulation Animation
-p.sim.output.energy         = false;  % Energy Plot
-p.sim.output.force			= false;  % Kinetic/Forces Plot
-p.sim.output.step_length	= false;  % Step Length Plot
-p.sim.output.limit_cycle	= false;  % Limit Cycle Plot
-p.sim.output.angle			= false;  % Leg and Hip Angle Plot
-p.sim.output.angular_vel	= false;  % Legs Angular Velocity Plot
-p.sim.output.angular_accel	= false;  % Legs Angular Acceleration Plot
+p.sim.output.energy         = true;  % Energy Plot
+p.sim.output.force			= true;  % Kinetic/Forces Plot
+p.sim.output.step_length	= true;  % Step Length Plot
+p.sim.output.limit_cycle	= true;  % Limit Cycle Plot
+p.sim.output.angle			= true;  % Leg and Hip Angle Plot
+p.sim.output.angular_vel	= true;  % Legs Angular Velocity Plot
+p.sim.output.angular_accel	= true;  % Legs Angular Acceleration Plot
 
 
 % Options to save each animation frame to file

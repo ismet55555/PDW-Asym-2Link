@@ -3,6 +3,7 @@ function [struct] = basic_statistics(struct, label, data)
 %                   for the entered struct field
 
     % Basic Statistics
+    struct.(label).data   = data;
     struct.(label).mean   = mean(data);
     struct.(label).std    = std(data);
     struct.(label).median = median(data);

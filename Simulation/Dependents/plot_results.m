@@ -235,12 +235,12 @@ if (p.sim.output.step_length)
     set(gcf, 'color', 'w');
     hold on
 
-    plot(results.sim.strides,  results.step_length.left, '--r', 'LineWidth', 1)
-    plot(results.sim.strides, results.step_length.right, '--b', 'LineWidth', 1)
+    plot(results.sim.strides, results.other.left.step_length.data, '--r', 'LineWidth', 1)
+    plot(results.sim.strides, results.other.right.step_length.data, '--b', 'LineWidth', 1)
 
-    plot(results.sim.strides, results.step_length.left, ...
+    plot(results.sim.strides, results.other.left.step_length.data, ...
         'or', 'markersize', 4, 'MarkerFaceColor', 'r');
-    plot(results.sim.strides, results.step_length.right, ...
+    plot(results.sim.strides, results.other.right.step_length.data, ...
         'ob', 'markersize', 3, 'MarkerFaceColor', 'b');
 
     legend('Left Leg', 'Right Leg')
@@ -249,7 +249,7 @@ if (p.sim.output.step_length)
     ylabel('Step Length (m)')
 
     set(get(gcf,'CurrentAxes'), 'FontName', 'Times New Roman', 'FontSize', 12);
-    ylim([0, max([results.step_length.left, results.step_length.right])*1.25])
+    ylim([0, max([results.other.left.step_length.data, results.other.right.step_length.data])*1.25])
     grid on
     box on
     
