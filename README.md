@@ -88,6 +88,9 @@ The angular velocities at the beginning of the simulation are:
  - `p.sim.init.qd1` - Stance Leg angular velocity (rad/s)
  - `p.sim.init.qd2` - Swing leg angular velocity (rad/s)
 
+The direciton of these dynamics can be seein in the image below:
+<p align="center"><img src="misc/angles.png" width="400"/></p>
+
 **TIP**: _To find a set of stable initial conditions, you can itereate through different parameters, then pause the model at the beginning of the left stance phase, viewing stance and swing angular positions and velocities._
 
 ### Result Output
@@ -141,7 +144,8 @@ Each walker simulation run will result in a variety of results.
 This passive dynamic walker simulation model has the ability to be defined asymmetrically in its masses and mass positions along the walker's legs. There are two masses per leg, while one single mass defines the hip.  The two masses along each leg can be distributed in any way along the leg for each side.
 
 The paramters are defined as show in the figure below:
-<p align="center">[Insert Figure Here]</p>
+
+<p align="center"><img src="misc/masses.png" width="400"/></p>
 
 ### Foot Shape
 This model is unique because it is possible to alter the foot shape (or roll over shape) of either foot. The foot shape for this model can be defined as a continous and variable radius around the walker's ankle as:
@@ -152,7 +156,7 @@ In this equation _angle_ is the angle around the ankle in radians, _A_ is the ch
 
 In addition it is possible to offset the ankle along the top of the foot with a constant _d_ as shown in the figure below.
 
-<p align="center">[Insert Figure Here]</p>
+<p align="center"><img src="misc/foot.png" width="400"/></p>
 
 
 ---
