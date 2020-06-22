@@ -251,7 +251,7 @@ However, for serious, heavy duty work, running a vast number of iterations over 
 
 ---
 ## :heavy_check_mark: Citing This Work
-If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
+If you are using this work in any publication of any sort, please be kind to cite and acknowledge this repo and myself.
 
 #### **APA:** 
 `Handzic, I. (n.d.). Passive Dynamic Walker (PDW) Simulation Model, Compass Gait, Asymmetric Variable Foot Shape Radius. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/PDW-Asym-2Link`
