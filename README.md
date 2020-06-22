@@ -96,7 +96,7 @@ Each simulation output run can produce a variety of output plots and animations.
  - `p.sim.output.animation` - When this is set, the animation will show the walker as it is being simulated in an animation.
  - `p.sim.output.energy` - These plots will show the walker's kinetic, potential, and total energy over time. One plot for the entire simulation, and one per-step plot overlayed.
 
- <p align="center"><img src="misc/plot_energy_over_time.png" width="400"/> <img src="misc/plot_energy_over_time.png" width="400"/></p>
+ <p align="center"><img src="misc/plot_energy_over_time.png" width="400"/> <img src="misc/plot_energy_per_step.png" width="400"/></p>
 
  - `p.sim.output.force` - These plots will show the walker's ground reaction forces in the direction along (parallel) the ramp, `Rx`, and perpendicular to the ramp, `Ry`.  One plot for the entire simulation and one per-step plot overlayed.
  
