@@ -134,7 +134,7 @@ Each simulation output run can produce a variety of output plots and animations.
 
 #### Raw Data
 Each walker simulation run will result in a variety of results. 
- - `p.sim.output.result_output_filename` - The file in which the simulation data text will be stored. Each simulation run yields one row of information. This is `DATA.txt` by default, however can be changed. In general all information related to anything yielded by the simulation run will be stored in the `results` struct variable (More information on that is explained below).  A specified subset of `results` is automatically stored in a specified `DATA.txt` file. This file is made such that each row is one simulation run. You may add or remove the paramters saved into this file, by adjusting the file `\Simulation\Dependents\save_parameters.m`
+ - `p.sim.output.result_output_filename` - The file in which the simulation data text will be stored. Each simulation run yields one row of information. This is `DATA.txt` by default, however can be changed. In general all information related to anything yielded by the simulation run will be stored in the `results` struct variable (More information on that is explained below).  A specified subset of `results` is automatically stored in a specified `DATA.txt` file. This file is made such that each row is one simulation run. You may add or remove the parameters saved into this file, by adjusting the file `\Simulation\Dependents\save_parameters.m`
  - `p.sim.output.save_plots` - Saves any specified output plots. _(Under construction for now, however you can manually save each plot using the common `Save as ...`)_
  - `p.sim.output.results_dir` - The directory into which the data text file will be saved.
 
@@ -145,12 +145,12 @@ Each walker simulation run will result in a variety of results.
 ### Masses and Mass Positions
 This passive dynamic walker simulation model has the ability to be defined asymmetrically in its masses and mass positions along the walker's legs. There are two masses per leg, while one single mass defines the hip.  The two masses along each leg can be distributed in any way along the leg for each side.
 
-The paramters are defined as show in the figure below:
+The parameters are defined as show in the figure below:
 
 <p align="center"><img src="misc/masses.png" width="400"/></p>
 
 ### Foot Shape
-This model is unique because it is possible to alter the foot shape (or roll over shape) of either foot. The foot shape for this model can be defined as a continous and variable radius around the walker's ankle as:
+This model is unique because it is possible to alter the foot shape (or roll over shape) of either foot. The foot shape for this model can be defined as a continuous and variable radius around the walker's ankle as:
 
 <p align="center">radius<sub>foot</sub> = angle*A + B</p>
 
@@ -161,12 +161,12 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 <p align="center"><img src="misc/foot.png" width="400"/></p>
 
 #### Foot Shape Viewer
-To help visualize a foot shape before applying it to the simulatino model, you can use the [`foot_shape_viewer.m`](https://github.com/ismet55555/PDW-Asym-2Link/tree/master/Utility/struct_map.m) utility located in the [utility directory](https://github.com/ismet55555/PDW-Asym-2Link/tree/master/Utility). That is, simply adjust the parameters outlined in the `foot_shape_viewer.m` and run it.
+To help visualize a foot shape before applying it to the simulation model, you can use the [`foot_shape_viewer.m`](https://github.com/ismet55555/PDW-Asym-2Link/tree/master/Utility/struct_map.m) utility located in the [utility directory](https://github.com/ismet55555/PDW-Asym-2Link/tree/master/Utility). That is, simply adjust the parameters outlined in the `foot_shape_viewer.m` and run it.
 
 ---
 ## :arrow_forward: Run
 There is not much to write in this section. To fire up the damn thang, just simply run `RUN.m`.
-When you do run the script the command window should look like something like this for a quick 4-stride successfull walker simulation run:
+When you do run the script the command window should look like something like this for a quick 4-stride successful walker simulation run:
 ```
 [18:59:26.188][INFO    ] : Simulation started
 [18:59:26.250][INFO    ] : Number of strides: 4
@@ -187,15 +187,15 @@ When you do run the script the command window should look like something like th
 ```
 
 ### Note on Logging Options
-This program utilizes a custom [MATLAB logging add-on](https://github.com/ismet55555/Logging-For-MATLAB). Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize thise tools, visit the [logger's page](https://github.com/ismet55555/Logging-For-MATLAB). In order to turn on any `Debug` level logging statments, in `RUN.m`, set  `log.default_level = 1`
+This program utilizes a custom [MATLAB logging add-on](https://github.com/ismet55555/Logging-For-MATLAB). Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize these tools, visit the [logger's page](https://github.com/ismet55555/Logging-For-MATLAB). In order to turn on any `Debug` level logging statements, in `RUN.m`, set  `log.default_level = 1`
 
 
 
 ---
 ## :checkered_flag: Results
-Each time this simulation model runs, it producses a diverse and large set of organized data.  This data is saved and avilable in the `results` struct variable. An example output of the `results` varible can be viewed [here](#misc/results.txt).
+Each time this simulation model runs, it produces a diverse and large set of organized data.  This data is saved and available in the `results` struct variable. An example output of the `results` variable can be viewed [here](#misc/results.txt).
 
-There are currenlty 7 different results data categories:
+There are currently 7 different results data categories:
 
  1. **sim**: General information about the simulation run such as time, number of steps, success/fail, etc
  2. **motion**: Angular position, velocity, and acceleration data for the walker.
