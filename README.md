@@ -42,7 +42,7 @@ The result output of this simulation model yields raw data and visual plots that
 ### :grey_question: What is This Even Good For
 There are a few reasons why you would be interested in this walking simulation model
 - **Presentation** - It looks nice and would definetly look cool when showing off MATLAB animations.
-- **Walking Dyanmics Research** - If you are a researcher that is focused on walking dynamics analysis, this may be cool to mess with. The powerful about a computer simulation like this one is that you are able to quickly change walker paramters, and change them a lot, while finding interesting patterns.
+- **Walking Dyanmics Research** - If you are a researcher that is focused on walking dynamics analysis, this may be cool to mess with. The powerful thing about a computer simulation like this one is that you are able to quickly change walker paramters, and change them a lot, while finding interesting patterns and insights.
 - **Building a PDW** - This simulation can be a great aid of picking and experimenting with a variety of different walker paramters to predict and verify the behavior of a physical PDW.
 - **Boredom** - If you don't know what you are doing with your life and happen to have MATLAB around, this is 100% for you before you go get your stuff together and get off the couch.
 
