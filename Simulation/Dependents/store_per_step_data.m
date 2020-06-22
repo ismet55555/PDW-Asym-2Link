@@ -11,9 +11,15 @@ struct.(label).time{index} = time;
 % Raw data vector
 struct.(label).data{index} = data;
 
-% Interpolate Data Linearly 
-time_interp = linspace(0, time(end), 500);
-data_interp = interp1(time, data, time_interp, 'linear', 'extrap');
+% Check if there is enough data to be interpolated
+if length(data) > 1
+    % Interpolate Data Linearly 
+    time_interp = linspace(0, time(end), 500);
+    data_interp = interp1(time, data, time_interp, 'linear', 'extrap');
+else
+    time_interp = 0;
+    data_interp = 0;
+end
 
 struct.(label).time_interp         = time_interp;
 struct.(label).data_interp{index}  = data_interp;
@@ -24,5 +30,6 @@ struct.(label).std(index)    = std(data_interp);
 struct.(label).median(index) = median(data_interp);
 struct.(label).min(index)    = min(data_interp);
 struct.(label).max(index)    = max(data_interp);
+
 
 end

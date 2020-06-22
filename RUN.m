@@ -84,7 +84,7 @@ p.walker.left.dL  = 0.00;
 
 % Right Foot (m)
 p.walker.right.rRa = 1/3;
-p.walker.right.rRb = -0.00;
+p.walker.right.rRb = -0.08;
 p.walker.right.dR  = 0.00;
 
 
