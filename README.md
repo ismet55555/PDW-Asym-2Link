@@ -160,6 +160,8 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 
 <p align="center"><img src="misc/foot.png" width="400"/></p>
 
+#### Foot Shape Viewer
+To help visualize a foot shape before applying it to the simulatino model, you can use the [`foot_shape_viewer.m` utility](#Utility/struct_map.m) located in the [`Utility` directory](#Utility). That is, simply adjust the parameters outlined in the `foot_shape_viewer.m` and run it.
 
 ---
 ## :arrow_forward: Run
@@ -210,6 +212,8 @@ Note that often times the data is pre-processed as follows:
  - For conveninece the data has suplemental basic statistics calculated such as mean, meadian, min, max
  - Per step data is interpolated for other elected post-processing steps such as averaging per step data.
 
+#### Struct Map Viewer
+To help visualize the `results` struct variable, you can use the [`struct_map.m` utility](#Utility/struct_map.m) located in the [`Utility` directory](#Utility). That is, simply type `struct_map(results)`.
 
 ---
 ## :control_knobs: Changing Variables over Multiple Runs 
