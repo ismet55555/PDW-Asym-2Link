@@ -60,10 +60,10 @@ I would love to hear about usage on earlier or later MATLAB versions and other o
 ## :rocket: Installation
 1. **Clone this repository to a computer with git.**
     - Use the ol' git machine to clone this repository to to a local directory
-    - `git clone https://github.com/ismet55555/Passive-Dynamic-Walker.git`
+    - `git clone https://github.com/ismet55555/PDW-Asym-2Link.git`
     - Note that you don't have to use the scary terminal, you can use one of many git graphical interfaces such as [GitHub Desktop](https://desktop.github.com/)
 2. **Download this repository as a _.zip_ file.**
-    - Go to this repository's front page: https://github.com/ismet55555/Passive-Dynamic-Walker
+    - Go to this repository's front page: https://github.com/ismet55555/PDW-Asym-2Link
     - On the right, press the green "Clone or Download" button
     - Select the "Download zip" option on the right.
     - Once downloaded, extract the .zip file on your computer
@@ -161,7 +161,7 @@ In addition it is possible to offset the ankle along the top of the foot with a 
 <p align="center"><img src="misc/foot.png" width="400"/></p>
 
 #### Foot Shape Viewer
-To help visualize a foot shape before applying it to the simulatino model, you can use the [`foot_shape_viewer.m`](#/Utility/struct_map.m) utility located in the [utility directory](#/Utility). That is, simply adjust the parameters outlined in the `foot_shape_viewer.m` and run it.
+To help visualize a foot shape before applying it to the simulatino model, you can use the [`foot_shape_viewer.m`](https://github.com/ismet55555/PDW-Asym-2Link/Utility/struct_map.m) utility located in the [utility directory](https://github.com/ismet55555/PDW-Asym-2Link/Utility). That is, simply adjust the parameters outlined in the `foot_shape_viewer.m` and run it.
 
 ---
 ## :arrow_forward: Run
@@ -213,7 +213,7 @@ Note that often times the data is pre-processed as follows:
  - Per step data is interpolated for other elected post-processing steps such as averaging per step data.
 
 #### Struct Map Viewer
-To help visualize the `results` struct variable, you can use the [`struct_map.m`](#/Utility/struct_map.m) utility located in the [utility directory](#/Utility). That is, simply type `struct_map(results)`.
+To help visualize the `results` struct variable, you can use the [`struct_map.m`](https://github.com/ismet55555/PDW-Asym-2Link/Utility/struct_map.m) utility located in the [utility directory](https://github.com/ismet55555/PDW-Asym-2Link/Utility). That is, simply type `struct_map(results)`.
 
 ---
 ## :control_knobs: Changing Variables over Multiple Runs 
@@ -254,16 +254,16 @@ However, for serious, heavy duty work, running a vast number of iterations over 
 If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
 
 #### **APA:** 
-`Handzic, I. (n.d.). Ismet55555/Logging-For-MATLAB. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/Logging-For-MATLAB`
+`Handzic, I. (n.d.). Passive Dynamic Walker (PDW) Simulation Model, Compass Gait, Asymmetric Variable Foot Shape Radius. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/PDW-Asym-2Link`
 
 #### **MLA:** 
-`Handzic, Ismet. “ismet55555/Logging-For-MATLAB.” Logger, GitHub, github.com/ismet55555/Logging-For-MATLAB.`
+`Handzic, Ismet. “Passive Dynamic Walker (PDW) Simulation Model, Compass Gait, Asymmetric Variable Foot Shape Radius.” Logger, GitHub, https://github.com/ismet55555/PDW-Asym-2Link.`
 
 #### **Chicago:**
-`Handzic, Ismet. "Ismet55555/Logging-For-MATLAB." Passive Dynamic Walker Compass Gait Variable Foot Simulation Model. June 6, 2020. Accessed <YEAR NUMBER>. https://github.com/ismet55555/Logging-For-MATLAB.`
+`Handzic, Ismet. "Passive Dynamic Walker (PDW) Simulation Model, Compass Gait, Asymmetric Variable Foot Shape Radius." Passive Dynamic Walker Compass Gait Variable Foot Simulation Model. June 6, 2020. Accessed <YEAR NUMBER>. https://github.com/ismet55555/PDW-Asym-2Link.`
 
 #### **BibTeX (LaTeX):**
-`@misc{handzic, title={ismet55555/Logging-For-MATLAB}, url={https://github.com/ismet55555/Logging-For-MATLAB}, journal={Logger}, publisher={GitHub}, author={Handzic, Ismet}}`
+`@misc{handzic, title={Passive Dynamic Walker (PDW) Simulation Model, Compass Gait, Asymmetric Variable Foot Shape Radius}, url={https://github.com/ismet55555/PDW-Asym-2Link}, journal={Logger}, publisher={GitHub}, author={Handzic, Ismet}}`
 
 
 ## :bust_in_silhouette: Author
