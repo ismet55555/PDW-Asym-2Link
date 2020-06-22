@@ -19,6 +19,7 @@ The result output of this simulation model yields raw data and visual plots that
  - Limit Cycle Plot
  - Step Length Asymmetry'
  - Collision event information
+ - Global and per-step data
  - and more ....
 
 
@@ -30,6 +31,7 @@ The result output of this simulation model yields raw data and visual plots that
 * [Simulation Options](#gear-simulation-options)
 * [Walker Parameters](#walking-walker-parameters)
 * [Run](#arrow_forward-run)
+* [Results](#checkered_flag-results)
 * [Changing Variables over Multiple Runs](#control_knobs-changing-variables-over-multiple-runs)
 * [Citing This Work](#heavy_check_mark-citing-this-work)
 * [Author](#bust_in_silhouette-author)
@@ -186,6 +188,29 @@ When you do run the script the command window should look like something like th
 This program utilizes a custom [MATLAB logging add-on](https://github.com/ismet55555/Logging-For-MATLAB). Essentially, this logger allows you to inspect what the program is doing, while giving you some basic troubleshooting tools. If you are interested in how to utilize thise tools, visit the [logger's page](https://github.com/ismet55555/Logging-For-MATLAB). In order to turn on any `Debug` level logging statments, in `RUN.m`, set  `log.default_level = 1`
 
 
+
+---
+## :checkered_flag: Results
+Each time this simulation model runs, it producses a diverse and large set of organized data.  This data is saved and avilable in the `results` struct variable. An example output of the `results` varible can be viewed [here](#misc/results.txt).
+
+There are currenlty 7 different results data categories:
+
+ 1. **sim**: General information about the simulation run such as time, number of steps, success/fail, etc
+ 2. **motion**: Angular position, velocity, and acceleration data for the walker.
+ 3. **energy**: Kinetic, potential, and total energy of the walker.
+ 4. **force**: Ground reaction forces parallel and perpendicular to the walking surface.
+ 5. **collision**: Information of all walker heel collision events during the simulation.
+ 6. **other**: Other uncategorized metrics such as hip height, and step length.
+ 7. **fail**: Information about any walker failure, if failure occurs.
+
+Please review the complete list of the `results` struct variable [here](#misc/results.txt). 
+
+Note that often times the data is pre-processed as follows:
+ - Divided up into left and right leg
+ - For conveninece the data has suplemental basic statistics calculated such as mean, meadian, min, max
+ - Per step data is interpolated for other elected post-processing steps such as averaging per step data.
+
+
 ---
 ## :control_knobs: Changing Variables over Multiple Runs 
 In a lot of research and exploration related situations, you may be wanting to vary specific walker paramters over multiple runs. For example, you may want to see the effects on walker dynamics of moving a leg mass up the leg gradually with each simulation run. Fundementally, currently to accomplish this, you can alter the specific variable and repeatatly executing the following code block that is located in `RUN.m`. If you are running multiple and unsupervised runs of the simulatino model, it is advisted that all plotting and animation options are set to `false` (see above).
@@ -224,10 +249,17 @@ However, for serious, heavy duty work, running a vast number of iterations over 
 ## :heavy_check_mark: Citing This Work
 If you are using this work in any publication of any sort, please be kind to cite and ackqnoledge this repo and myself.
 
-- **APA:** `Handzic, I. (n.d.). Ismet55555/Logging-For-MATLAB. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/Logging-For-MATLAB`
-- **MLA:** `Handzic, Ismet. “ismet55555/Logging-For-MATLAB.” Logger, GitHub, github.com/ismet55555/Logging-For-MATLAB.`
-- **Chicago:** - `Handzic, Ismet. "Ismet55555/Logging-For-MATLAB." Passive Dynamic Walker Compass Gait Variable Foot Simulation Model. June 6, 2020. Accessed <YEAR NUMBER>. https://github.com/ismet55555/Logging-For-MATLAB.`
-- **BibTeX (LaTeX):** - `@misc{handzic, title={ismet55555/Logging-For-MATLAB}, url={https://github.com/ismet55555/Logging-For-MATLAB}, journal={Logger}, publisher={GitHub}, author={Handzic, Ismet}}`
+#### **APA:** 
+`Handzic, I. (n.d.). Ismet55555/Logging-For-MATLAB. Retrieved <MONTH NAME> <DAY NUMBER>, <YEAR NUMBER>, from https://github.com/ismet55555/Logging-For-MATLAB`
+
+#### **MLA:** 
+`Handzic, Ismet. “ismet55555/Logging-For-MATLAB.” Logger, GitHub, github.com/ismet55555/Logging-For-MATLAB.`
+
+#### **Chicago:**
+`Handzic, Ismet. "Ismet55555/Logging-For-MATLAB." Passive Dynamic Walker Compass Gait Variable Foot Simulation Model. June 6, 2020. Accessed <YEAR NUMBER>. https://github.com/ismet55555/Logging-For-MATLAB.`
+
+#### **BibTeX (LaTeX):**
+`@misc{handzic, title={ismet55555/Logging-For-MATLAB}, url={https://github.com/ismet55555/Logging-For-MATLAB}, journal={Logger}, publisher={GitHub}, author={Handzic, Ismet}}`
 
 
 ## :bust_in_silhouette: Author
