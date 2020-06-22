@@ -95,12 +95,34 @@ The angular velocities at the beginning of the simulation are:
 Each simulation output run can produce a variety of output plots and animations.  The following options can be set to `true` if you would like to enable them. In order to turn them off, set them to `false`. The potional output plots are as follows. 
  - `p.sim.output.animation` - When this is set, the animation will show the walker as it is being simulated in an animation.
  - `p.sim.output.energy` - These plots will show the walker's kinetic, potential, and total energy over time. One plot for the entire simulation, and one per-step plot overlayed.
+
+ <p align="center"><img src="misc/plot_energy_over_time.png" width="400"/> <img src="misc/plot_energy_over_time.png" width="400"/></p>
+
  - `p.sim.output.force` - These plots will show the walker's ground reaction forces in the direction along (parallel) the ramp, `Rx`, and perpendicular to the ramp, `Ry`.  One plot for the entire simulation and one per-step plot overlayed.
+ 
+<p align="center"><img src="misc/plot_GRF_over_time.png" width="400"/> <img src="misc/plot_GRF_per_step.png" width="400"/></p>
+
  - `p.sim.output.step_length` - This plot shows the step length of each step. This is particularly useful when specifying asymmteric walker parameters.
+ 
+<p align="center"><img src="misc/plot_step_length_over_time.png" width="400"/></p>
+
+
  - `p.sim.output.limit_cycle` - This shows the limit cycle plot of the walker left and right leg. A limit cycle plot shows the relation ship of the leg's angular position (`q`) and angular velocity (`qd`)
+ 
+<p align="center"><img src="misc/plot_limit_cycle.png" width="400"/></p>
+ 
  - `p.sim.output.angle` - This option will output the angle over time and per-step for the walker's legs (`q`)
+ 
+<p align="center"><img src="misc/plot_angular_position_over_time.png" width="400"/></p>
+ 
  - `p.sim.output.anglular_vel` -  This option will output the angular velocity over time and per-step for the walker's legs (`qd`)
+ 
+<p align="center"><img src="misc/plot_angular_velocity_over_time.png" width="400"/></p>
+ 
  - `p.sim.output.angular_accel` - This option will output the angular acceleration over time and per-step for the walker's legs (`qdd`)
+ 
+<p align="center"><img src="misc/plot_angular_acceleration_over_time.png" width="400"/></p>
+ 
 
 **Note:** _If you would like to change any of the output plots to your need, you can do so by changing them in file `\Simulation\Dependents\plot_results.m`._
 **Note:** _If you are interested in an iteration of multiple simulation runs, it may be best to set all visual outputs to `false`._ 
