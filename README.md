@@ -4,7 +4,7 @@
 <p align="center"><img src="misc/PDW_Demo.gif" width="450"/></p>
 
 
-A passive dynamic walker (PDW) is a biped robot that does not draw energy from any supply (ie. batteries, gasoline, etc) and only relies on the potential energy of walking down a decline. It fundementally represents a walking human as seen from the side (sagital view), while the upper body is represented as a larger hip mass.
+A passive dynamic walker (PDW) is a biped robot that does not draw energy from any supply (ie. batteries, gasoline, etc) and only relies on the potential energy of walking down a decline. It fundamentally represents a walking human as seen from the side (sagittal view), while the upper body is represented as a larger hip mass.
 
 This PDW is a so-called compass gait, or 2-link, walking model, in that there are only two effective linkages representing the walker's system.  Essentially, this compass gait model is a inverted double-pendulum rotating about the ground contact.
 
@@ -41,9 +41,9 @@ The result output of this simulation model yields raw data and visual plots that
 ---
 ### :grey_question: What is This Even Good For
 There are a few reasons why you would be interested in this walking simulation model
-- **Presentation** - It looks nice and would definetly look cool when showing off MATLAB animations.
-- **Walking Dyanmics Research** - If you are a researcher that is focused on walking dynamics analysis, this may be cool to mess with. The powerful thing about a computer simulation like this one is that you are able to quickly change walker paramters, and change them a lot, while finding interesting patterns and insights.
-- **Building a PDW** - This simulation can be a great aid of picking and experimenting with a variety of different walker paramters to predict and verify the behavior of a physical PDW.
+- **Presentation** - It looks nice and would definitely look cool when showing off MATLAB animations.
+- **Walking Dynamics Research** - If you are a researcher that is focused on walking dynamics analysis, this may be cool to mess with. The powerful thing about a computer simulation like this one is that you are able to quickly change walker parameters, and change them a lot, while finding interesting patterns and insights.
+- **Building a PDW** - This simulation can be a great aid of picking and experimenting with a variety of different walker parameters to predict and verify the behavior of a physical PDW.
 - **Boredom** - If you don't know what you are doing with your life and happen to have MATLAB around, this is 100% for you before you go get your stuff together and get off the couch.
 
 
@@ -76,7 +76,7 @@ For example, `p.sim.dt` will hold the simulation time step.
 
 ### General Simulation Enviroment
 These settings are for the general simulation behavior.
- - `p.sim.dt` - Time Step, dt (s) - The time beteen simulation iterations.
+ - `p.sim.dt` - Time Step, dt (s) - The time between simulation iterations.
  - `p.sim.total_strides` - Total Walker Strides - Specifies the goal of the walker. Unless the walker fails, at this number of strides the walker will stop walking.
  - `p.sim.g` - Gravity Constant (m/s^2) - The gravity constant applied to the walker.
  - `p.sim.theta` - Walking Ramp (rad) - The slope of the ramp on which the walker walks. Positive values is a decline, negative values is a incline.
@@ -90,14 +90,14 @@ The angular velocities at the beginning of the simulation are:
  - `p.sim.init.qd1` - Stance Leg angular velocity (rad/s)
  - `p.sim.init.qd2` - Swing leg angular velocity (rad/s)
 
-The direciton of these dynamics can be seein in the image below:
+The direction of these dynamics can be seein in the image below:
 <p align="center"><img src="misc/angles.png" width="400"/></p>
 
-**TIP**: _To find a set of stable initial conditions, you can itereate through different parameters, then pause the model at the beginning of the left stance phase, viewing stance and swing angular positions and velocities._
+**TIP**: _To find a set of stable initial conditions, you can iterate through different parameters, then pause the model at the beginning of the left stance phase, viewing stance and swing angular positions and velocities._
 
 ### Result Output
 #### Plots and Animations
-Each simulation output run can produce a variety of output plots and animations.  The following options can be set to `true` if you would like to enable them. In order to turn them off, set them to `false`. The potional output plots are as follows. 
+Each simulation output run can produce a variety of output plots and animations.  The following options can be set to `true` if you would like to enable them. In order to turn them off, set them to `false`. The potential output plots are as follows. 
  - `p.sim.output.animation` - When this is set, the animation will show the walker as it is being simulated in an animation.
  - `p.sim.output.energy` - These plots will show the walker's kinetic, potential, and total energy over time. One plot for the entire simulation, and one per-step plot overlayed.
 
@@ -107,7 +107,7 @@ Each simulation output run can produce a variety of output plots and animations.
  
 <p align="center"><img src="misc/plot_GRF_over_time.png" width="400"/> <img src="misc/plot_GRF_per_step.png" width="400"/></p>
 
- - `p.sim.output.step_length` - This plot shows the step length of each step. This is particularly useful when specifying asymmteric walker parameters.
+ - `p.sim.output.step_length` - This plot shows the step length of each step. This is particularly useful when specifying asymmetric walker parameters.
  
 <p align="center"><img src="misc/plot_step_length_over_time.png" width="400"/></p>
 
@@ -202,14 +202,14 @@ There are currently 7 different results data categories:
  3. **energy**: Kinetic, potential, and total energy of the walker.
  4. **force**: Ground reaction forces parallel and perpendicular to the walking surface.
  5. **collision**: Information of all walker heel collision events during the simulation.
- 6. **other**: Other uncategorized metrics such as hip height, and step length.
+ 6. **other**: Other un-categorized metrics such as hip height, and step length.
  7. **fail**: Information about any walker failure, if failure occurs.
 
 Please review the complete list of the `results` struct variable [here](#misc/results.txt). 
 
 Note that often times the data is pre-processed as follows:
  - Divided up into left and right leg
- - For conveninece the data has suplemental basic statistics calculated such as mean, meadian, min, max
+ - For convenience the data has supplemental basic statistics calculated such as mean, meadian, min, max
  - Per step data is interpolated for other elected post-processing steps such as averaging per step data.
 
 #### Struct Map Viewer
@@ -217,7 +217,7 @@ To help visualize the `results` struct variable, you can use the [`struct_map.m`
 
 ---
 ## :control_knobs: Changing Variables over Multiple Runs 
-In a lot of research and exploration related situations, you may be wanting to vary specific walker paramters over multiple runs. For example, you may want to see the effects on walker dynamics of moving a leg mass up the leg gradually with each simulation run. Fundementally, currently to accomplish this, you can alter the specific variable and repeatatly executing the following code block that is located in `RUN.m`. If you are running multiple and unsupervised runs of the simulatino model, it is advisted that all plotting and animation options are set to `false` (see above).
+In a lot of research and exploration related situations, you may be wanting to vary specific walker parameters over multiple runs. For example, you may want to see the effects on walker dynamics of moving a leg mass up the leg gradually with each simulation run. Fundementally, currently to accomplish this, you can alter the specific variable and repeatably executing the following code block that is located in `RUN.m`. If you are running multiple and unsupervised runs of the simulation model, it is advised that all plotting and animation options are set to `false` (see above).
 
 ```MATLAB
 %Start Simulation Timer
@@ -246,7 +246,7 @@ log.info('Simulation run complete')
 
 In order to change one variable gradually over a series of simulation runs, you may want to encompass the above block in a `for` loop, while changing parameters in the `p` struct variable at each iteration. If more than one variable is to be changed over multiple simulation, you may want to use nested `for` loops.
 
-However, for serious, heavy duty work, running a vast number of iterations over a many different variables, you may want to explore MATLAB's [Paralllel Processing Toolbox](https://www.mathworks.com/products/parallel-computing.html) , using a `parfor` loop. A simple example of a `parfor` loop can be seen [here](https://www.mathworks.com/help/parallel-computing/parfor.html;jsessionid=9134636eca3c6ac7057cc0779fe4).
+However, for serious, heavy duty work, running a vast number of iterations over a many different variables, you may want to explore MATLAB's [Parallel Processing Toolbox](https://www.mathworks.com/products/parallel-computing.html) , using a `parfor` loop. A simple example of a `parfor` loop can be seen [here](https://www.mathworks.com/help/parallel-computing/parfor.html;jsessionid=9134636eca3c6ac7057cc0779fe4).
 
 
 ---
