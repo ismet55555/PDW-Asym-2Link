@@ -3,12 +3,16 @@ function plot_results(p, results)
 %               plots of those paramters. 
 %               Results area only shown for specifies plots.
 
+% Message logger object reference
+global log
+
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Angular Position    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Cummalative / All
 if (p.sim.output.angle)
+    log.debug("Plotting Angular Position ...")
     % Setting the window name
     p.sim.figure_handles.q_time = figure('Name' ,"PDW: Angular Position", ...
                                          'NumberTitle','off');
@@ -37,6 +41,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Angular Velocity    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (p.sim.output.angular_vel)
+    log.debug("Plotting Angular Velocity ...")
     p.sim.figure_handles.qd_time = figure('Name' ,"PDW: Angular Velocity", ...
                                           'NumberTitle','off');
     set(gcf, 'color', 'w');
@@ -61,6 +66,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Angular Acceleration    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (p.sim.output.angular_accel)
+    log.debug("Plotting Angular Acceleration ...")
     p.sim.figure_handles.qdd_time = figure('Name' ,"PDW: Angular Acceleration", ...
                                            'NumberTitle','off');
     set(gcf, 'color', 'w');
@@ -85,6 +91,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Energy    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.energy)
+    log.debug("Plotting Energy ...")
     % PDW Energy Over Time
     p.sim.figure_handles.energy_all = figure('Name' ,"PDW: Energy Over Time", ...
                                               'NumberTitle','off');
@@ -162,6 +169,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Forces    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if(p.sim.output.force)
+    log.debug("Plotting Forces ...")
     %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
     % PDW Forces Over Time
     p.sim.figure_handles.forces_time = figure('Name' ,"PDW: Ground Forces Over Time", ...
@@ -230,6 +238,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Step Length    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (p.sim.output.step_length)
+    log.debug("Plotting Step Length ...")
     p.sim.figure_handles.step_length = figure('Name' ,"PDW: Step Length Per Step", ...
                                               'NumberTitle','off');
     set(gcf, 'color', 'w');
@@ -265,6 +274,7 @@ end
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%    Limit Cycle    %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 if (p.sim.output.limit_cycle)
+    log.debug("Plotting Limit Cycle ...")
     % Setting the window name
     p.sim.figure_handles.q_time = figure('Name' ,"PDW: Limit Cycle", ...
                                          'NumberTitle','off');

@@ -32,14 +32,14 @@ global log
 log = logger();
 log.show_time     = true;
 log.show_ms       = true;
-log.default_level = 2; 
+log.default_level = 1; 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Parameters  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.dt			= 0.001;			% Simulation time step (s)
-p.sim.total_strides = 30;				% Total Steps Taken
+p.sim.total_strides = 15;				% Total Steps Taken
 p.sim.g             = 9.80665;			% Gravity (m/s^2)
 p.sim.theta         = asin(8.55/144);	% Walking ramp Angle (rad)
 

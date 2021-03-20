@@ -2,10 +2,11 @@ function save_parameters(p, results)
 % SAVE_PARAMETERS: This script specifies, organizes, and saves simulation
 %                  parameters to file
 
+global log
 
 % Define the full path to the data file
 full_path = strcat(p.sim.output.result_dir, p.sim.output.result_output_filename);
-
+log.debug(sprintf('Data output file path: %s', full_path))
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%  Define Saved Parameters  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -128,6 +129,7 @@ headers = headers';
 % Add the file with headers if it does not exist yet
 % TODO: Create header if also file is empty
 if ~isfile(full_path)
+    log.debug(sprintf('Adding new data output file and adding column headers ...'))
     open_file = fopen(full_path, 'w');            % Create and open the new file
     fprintf(open_file, headers_format, headers);  % Add the headers
     fclose(open_file);                            % Close the file
@@ -149,6 +151,7 @@ for field = 1 : numel(field_names)
 end
 
 % Write the data
+log.debug(sprintf('Writing data to file ...'))
 open_file = fopen(full_path, 'a');                               % Open text file to save model data
 fprintf(open_file, parameters_format, saved_parameters_values);  % Write all parameter to text file
 fclose(open_file);                                               % Close text file

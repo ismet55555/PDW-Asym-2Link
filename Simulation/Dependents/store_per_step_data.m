@@ -3,7 +3,9 @@ function [struct] = store_per_step_data(struct, label, data, time, index)
 %                           - Stores raw data
 %                           - Computes interpolated vaues of raw data
 %                           - Computes basic statistic of interpolated values
-    
+
+global log
+log.debug(sprintf('Data: "%s": Store Raw, interpolated data. Calculate and store basic statistics ... ', label))
 
 % Time vector
 struct.(label).time{index} = time;
