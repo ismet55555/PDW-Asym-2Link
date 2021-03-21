@@ -32,7 +32,7 @@ global log
 log = logger();
 log.show_time     = true;
 log.show_ms       = true;
-log.default_level = 1; 
+log.default_level = 2; 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -84,7 +84,7 @@ p.walker.left.dL  = 0.00;
 
 % Right Foot (m)
 p.walker.right.rRa = 1/3;
-p.walker.right.rRb = -0.08;
+p.walker.right.rRb = -0.00;
 p.walker.right.dR  = 0.00;
 
 
@@ -135,13 +135,13 @@ p.walker.init.qd2 = -0.039885255927632;
 %%%%%%%%%%%%%%%%%%%%%%%%  Simulation Display and Output  %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 p.sim.output.animation		= false;  % Simulation Animation
-p.sim.output.energy         = true;  % Energy Plot
-p.sim.output.force			= true;  % Kinetic/Forces Plot
-p.sim.output.step_length	= true;  % Step Length Plot
-p.sim.output.limit_cycle	= true;  % Limit Cycle Plot
-p.sim.output.angle			= true;  % Leg and Hip Angle Plot
-p.sim.output.angular_vel	= true;  % Legs Angular Velocity Plot
-p.sim.output.angular_accel	= true;  % Legs Angular Acceleration Plot
+p.sim.output.energy         = false;  % Energy Plot
+p.sim.output.force			= false;  % Kinetic/Forces Plot
+p.sim.output.step_length	= false;  % Step Length Plot
+p.sim.output.limit_cycle	= false;  % Limit Cycle Plot
+p.sim.output.angle			= false;  % Leg and Hip Angle Plot
+p.sim.output.angular_vel	= false;  % Legs Angular Velocity Plot
+p.sim.output.angular_accel	= false;  % Legs Angular Acceleration Plot
 
 
 % Options to save each animation frame to file
@@ -168,28 +168,63 @@ p.walker.animation.ms_mul = 50;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Simulation   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-%Start Simulation Timer
-tic
-log.info('Simulation started')
-log.info(sprintf('Number of strides: %i', p.sim.total_strides))
+num_of_divs = 30;
 
-%Calling Walker_Control function to start simulation
-[p, results] = Walker_Control(p);
+VAR_1 = linspace(-0.30, 0.30, num_of_divs);  % p.walker.left.rLb
+VAR_2 = linspace(-0.30, 0.30, num_of_divs);  % p.walker.right.rRb
+VAR_3 = linspace(-0.00, 0.10, num_of_divs);  % p.sim.theta
 
-% Log how long it took to run the single simulation run
-results.sim.run_time = toc;
-log.info('Simulation complete')
-log.info(sprintf('Simulation duration: %4.2fs', results.sim.run_time))
+total_iterations = length(VAR_1) * length(VAR_2) * length(VAR_3);
+iteration_number = 0;
 
-% Plot specified result plots
-log.info('Plotting any specified plots ...');
-plot_results(p, results)
+for index_1 = 1 : length(VAR_1)
+    for index_2 = 1 : length(VAR_2)
+        for index_3 = 1 : length(VAR_3)
+            iteration_number = iteration_number + 1;
 
-%Saving Simulation Data
-log.info('Saving simulation data to file ...');
-save_parameters(p, results)
+            % Assigning variables
+            p.walker.left.rLb = VAR_1(index_1);
+            p.walker.right.rRb = VAR_2(index_2);
+            p.sim.theta = VAR_3(index_3);
 
-log.info('Simulation run complete')
+            fprintf('\n\n')
+            log.info('======================= SIMULATION STARTED =================================')
+            log.info(sprintf('Simulation iteration:  %i of %i', iteration_number, total_iterations))
+            log.info(sprintf('rLb:   %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_1(index_1), min(VAR_1(index_1)), max(VAR_1(index_1)), num_of_divs))
+            log.info(sprintf('rRb:   %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_2(index_2), min(VAR_2(index_2)), max(VAR_2(index_2)), num_of_divs))
+            log.info(sprintf('theta: %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_3(index_3), min(VAR_3(index_3)), max(VAR_3(index_3)), num_of_divs))
+            log.info('============================================================================')
+
+            %Start Simulation Timer
+            tic
+            log.info('Simulation started')
+            log.info(sprintf('Number of strides: %i', p.sim.total_strides))
+
+            %Calling Walker_Control function to start simulation
+            [p, results] = Walker_Control(p);
+
+            % Log how long it took to run the single simulation run
+            results.sim.run_time = toc;
+            log.info('Simulation complete')
+            log.info(sprintf('Simulation duration: %4.2fs', results.sim.run_time))
+
+            % Plot specified result plots
+            log.info('Plotting any specified plots ...');
+            plot_results(p, results)
+
+            %Saving Simulation Data
+            log.info('Saving simulation data to file ...');
+            save_parameters(p, results)
+
+            log.info('Simulation run complete')
+        end
+    end
+end
+    
+
+
+
+
 
 
 
