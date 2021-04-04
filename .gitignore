@@ -28,3 +28,5 @@ hs_err_pid*
 # Matlab working files
 *.asv
 
+# Data file
+Output/data/*

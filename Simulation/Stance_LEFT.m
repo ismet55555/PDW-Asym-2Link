@@ -192,10 +192,17 @@ end
 log.debug("Left Stance - Simulation loop ended")
 
 % Check if model ran few simuilation steps 
-if(length(q) < 20)
+if(length(q) < 20 || not(exist('qdd','var')))
     log.warning(sprintf("Left Stance - Walker simulation ended after only %i iterations", length(q)))
     results.fail.tripped = true;
     results.sim.stopped = 1;
+end
+
+% Return if no dynamics were produced
+if not(exist('qdd','var'))
+    qdp = [0; 0];
+    results.sim.time = [0];
+    return
 end
 
 % Remove first entries, they are included within the last phase
@@ -464,8 +471,15 @@ q2  = q(2, end);
 q2d = qd(2, end);
 
 % Last configuration of the foot radius
-rL = rL(end);
-rR = rR(end);
+if isempty(rR) || isempty(rL)
+    rL = [0];
+    rR = [0];
+else
+    rR = rR(end);
+    rL = rL(end);
+end
+
+
 
 % Calling Heel Strike Function at the end of LEFT stance
 [Qm2, Qp2] = Collision_Heel_LEFT(q1, q1d, q2, q2d, p, rL, rR, psi);

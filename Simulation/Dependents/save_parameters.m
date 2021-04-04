@@ -61,7 +61,11 @@ saved_parameters.duration       = results.sim.duration;
 saved_parameters.fail           = results.fail.fail;
 saved_parameters.phase          = results.fail.phase;
 
-
+% If there first step did not even produce dynamics
+if not(isfield(results.energy.left_right,'total'))
+    % Return without saving the results
+    return
+end
 
 % Energy
 saved_parameters.energy_all_total_mean = mean(results.energy.left_right.total.mean(1:end));
