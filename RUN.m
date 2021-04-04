@@ -32,7 +32,7 @@ global log
 log = logger();
 log.show_time     = true;
 log.show_ms       = true;
-log.default_level = 2; 
+log.default_level = 4; 
 
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -168,33 +168,117 @@ p.walker.animation.ms_mul = 50;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Simulation   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-num_of_divs = 30;
+% Walker masses
+num_of_divs = 5;
+VAR_mh   = linspace( 1.00, 3.00, num_of_divs)
 
-VAR_1 = linspace(-0.30, 0.30, num_of_divs);  % p.walker.left.rLb
-VAR_2 = linspace(-0.30, 0.30, num_of_divs);  % p.walker.right.rRb
-VAR_3 = linspace(-0.00, 0.10, num_of_divs);  % p.sim.theta
+VAR_mt1L = linspace( 0.75, 1.25, num_of_divs)
+VAR_ms1L = linspace( 0.01, 0.50, num_of_divs)
 
-total_iterations = length(VAR_1) * length(VAR_2) * length(VAR_3);
+VAR_mt1R = linspace( 0.75, 1.25, num_of_divs)
+VAR_ms1R = linspace( 0.01, 0.50, num_of_divs)
+
+
+% Walker distances
+num_of_divs = 3;
+perc_down = 0.85;
+perc_up = 1.15;
+VAR_a1L = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+VAR_b1L = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+VAR_c1L = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+
+VAR_a1R = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+VAR_b1R = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+VAR_c1R = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
+
+
+% Walker foot
+num_of_divs = 3;
+
+VAR_rLa = linspace(-0.25, 0.25, num_of_divs)
+VAR_rLb = linspace(-0.25, 0.25, num_of_divs)
+VAR_dL  = linspace( 0.00, 0.05, num_of_divs)
+
+VAR_rRa = linspace(-0.20, 0.20, num_of_divs)
+VAR_rRb = linspace(-0.20, 0.20, num_of_divs)
+VAR_dR  = linspace( 0.00, 0.05, num_of_divs)
+
+
+
+
+% Calculating total iterations
+total_iterations = length(VAR_mh) ...
+                * length(VAR_mt1L) ...
+                * length(VAR_ms1L) ...
+                * length(VAR_mt1R) ...
+                * length(VAR_ms1R) ...
+                * length(VAR_a1L) ...
+                * length(VAR_b1L) ...
+                * length(VAR_c1L) ...
+                * length(VAR_a1R) ...
+                * length(VAR_b1R) ...
+                * length(VAR_c1R) ...
+                * length(VAR_rLa) ...
+                * length(VAR_rLb) ...
+                * length(VAR_dL) ...
+                * length(VAR_rRa) ...
+                * length(VAR_rRb) ...
+                * length(VAR_dR);
+log.fatal(sprintf('Total iterations: %i', total_iterations))
+fprintf('\n\n\n')
 iteration_number = 0;
 
-for index_1 = 1 : length(VAR_1)
-    for index_2 = 1 : length(VAR_2)
-        for index_3 = 1 : length(VAR_3)
+% Starting iteration timer
+iteration_timer = tic;
+
+for index_1 = 1 : length(VAR_mh)
+for index_2 = 1 : length(VAR_mt1L)
+for index_3 = 1 : length(VAR_ms1L)
+for index_4 = 1 : length(VAR_mt1R)
+for index_5 = 1 : length(VAR_ms1R)
+    
+for index_6 = 1 : length(VAR_a1L)
+for index_7 = 1 : length(VAR_b1L)
+for index_8 = 1 : length(VAR_c1L)
+for index_9 = 1 : length(VAR_a1R)
+for index_10 = 1 : length(VAR_b1R)
+for index_11 = 1 : length(VAR_c1R)
+
+for index_12 = 1 : length(VAR_rLa)
+for index_13 = 1 : length(VAR_rLb)
+for index_14 = 1 : length(VAR_dL)
+for index_15 = 1 : length(VAR_rRa)
+for index_16 = 1 : length(VAR_rRb)
+for index_17 = 1 : length(VAR_dR)
             iteration_number = iteration_number + 1;
-
             % Assigning variables
-            p.walker.left.rLb = VAR_1(index_1);
-            p.walker.right.rRb = VAR_2(index_2);
-            p.sim.theta = VAR_3(index_3);
+            
+            % Walker masses
+            p.walker.hip.mh = VAR_mh(index_1);
+            p.walker.left.mt1L = VAR_mt1L(index_2);
+            p.walker.left.ms1L = VAR_ms1L(index_3);
+            p.walker.right.mt1R = VAR_mt1R(index_4);
+            p.walker.right.ms1R = VAR_ms1R(index_5);
 
-            fprintf('\n\n')
-            log.info('======================= SIMULATION STARTED =================================')
-            log.info(sprintf('Simulation iteration:  %i of %i', iteration_number, total_iterations))
-            log.info(sprintf('rLb:   %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_1(index_1), min(VAR_1(index_1)), max(VAR_1(index_1)), num_of_divs))
-            log.info(sprintf('rRb:   %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_2(index_2), min(VAR_2(index_2)), max(VAR_2(index_2)), num_of_divs))
-            log.info(sprintf('theta: %4.4f  (Range: [%4.4f : %4.4f], Divisions: %i)', VAR_3(index_3), min(VAR_3(index_3)), max(VAR_3(index_3)), num_of_divs))
-            log.info('============================================================================')
+            % Walker distances
+            p.walker.left.a1L = VAR_a1L(index_6);
+            p.walker.left.b1L = VAR_b1L(index_7);
+            p.walker.left.c1L = VAR_c1L(index_8);
+            p.walker.right.a1R = VAR_a1R(index_9);
+            p.walker.right.b1R = VAR_b1R(index_10);
+            p.walker.right.c1R = VAR_c1R(index_11);
 
+            % Walker foot
+            p.walker.left.rLa = VAR_rLa(index_12);
+            p.walker.left.rLb = VAR_rLb(index_13);
+            p.walker.left.dL = VAR_dL(index_14);
+            p.walker.right.rRa = VAR_rRa(index_15);
+            p.walker.right.rRb = VAR_rRb(index_16);
+            p.walker.right.dR = VAR_dR(index_17);
+
+
+
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
             %Start Simulation Timer
             tic
             log.info('Simulation started')
@@ -217,10 +301,42 @@ for index_1 = 1 : length(VAR_1)
             save_parameters(p, results)
 
             log.info('Simulation run complete')
-        end
-    end
+            %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+            
+            log.fatal(sprintf('[ %i of %i (%4.2f) ] - Duration: %4.2fs - Step: %i - Success: %i', ...
+                iteration_number, ...
+                total_iterations, ...
+                (iteration_number / total_iterations) * 100, ...
+                results.sim.run_time, ...
+                results.sim.step, ...
+                results.sim.success))
 end
-    
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+end
+
+fprintf('\n\n\n')
+fprintf('=========================================================')
+fprintf('\n\n\n')
+log.fatal(sprintf('Total duration: %4.2fs', toc(iteration_timer)))
+log.fatal(sprintf('Mean duration per iteration: %4.3fs', toc(iteration_timer) / iteration_number))
+fprintf('\n\n')
+fprintf('=========================================================')
+fprintf('\n\nDONE\n\n')
 
 
 
