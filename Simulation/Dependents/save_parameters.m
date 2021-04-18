@@ -1,6 +1,8 @@
-function save_parameters(p, results)
+function [success] = save_parameters(p, results)
 % SAVE_PARAMETERS: This script specifies, organizes, and saves simulation
 %                  parameters to file
+
+success = true;
 
 global log
 
@@ -64,6 +66,7 @@ saved_parameters.phase          = results.fail.phase;
 % If there first step did not even produce dynamics
 if not(isfield(results.energy.left_right,'total'))
     % Return without saving the results
+    log.warning('Results for simulation iteration were not saved. No data produced.')
     return
 end
 
@@ -133,6 +136,15 @@ headers = headers';
 % Add the file with headers if it does not exist yet
 % TODO: Create header if also file is empty
 if ~isfile(full_path)
+    log.debug('Creating data directory ...')
+    [status, msg] = mkdir(char(p.sim.output.result_dir));
+    if status ~= 1
+       log.error(sprintf('Failed to create data directory: %s', p.sim.output.result_dir)) 
+       log.error(sprintf('Exception: %s', msg))
+       success = false;
+       return
+    end
+    
     log.debug(sprintf('Adding new data output file and adding column headers ...'))
     open_file = fopen(full_path, 'w');            % Create and open the new file
     fprintf(open_file, headers_format, headers);  % Add the headers
@@ -160,5 +172,7 @@ open_file = fopen(full_path, 'a');                               % Open text fil
 fprintf(open_file, parameters_format, saved_parameters_values);  % Write all parameter to text file
 fclose(open_file);                                               % Close text file
 
+
+success = true;
 
 end

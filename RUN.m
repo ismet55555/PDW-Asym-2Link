@@ -298,7 +298,11 @@ for index_17 = 1 : length(VAR_dR)
 
             %Saving Simulation Data
             log.info('Saving simulation data to file ...');
-            save_parameters(p, results)
+            success = save_parameters(p, results);
+            if ~success
+               log.fatal('Failed to save simulation data')
+               return 
+            end
 
             log.info('Simulation run complete')
             %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
