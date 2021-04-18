@@ -29,4 +29,5 @@ hs_err_pid*
 *.asv
 
 # Data file
-Output/data/*
+Output/data/*.txt
+Output/data/*.data
