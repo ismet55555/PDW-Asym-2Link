@@ -169,8 +169,8 @@ p.walker.animation.ms_mul = 50;
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%  Simulation   %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Walker masses
-num_of_divs = 5;
-VAR_mh   = linspace( 1.00, 3.00, num_of_divs)
+num_of_divs = 3;
+VAR_mh   = linspace( 2.00, 2.00, 1)
 
 VAR_mt1L = linspace( 0.75, 1.25, num_of_divs)
 VAR_ms1L = linspace( 0.01, 0.50, num_of_divs)
@@ -195,13 +195,13 @@ VAR_c1R = linspace( 0.333 * perc_down, 0.333 * perc_up, num_of_divs)
 % Walker foot
 num_of_divs = 3;
 
-VAR_rLa = linspace(-0.25, 0.25, num_of_divs)
+VAR_rLa = linspace(-0.25, 0.25, 1)
 VAR_rLb = linspace(-0.25, 0.25, num_of_divs)
-VAR_dL  = linspace( 0.00, 0.05, num_of_divs)
+VAR_dL  = linspace( 0.00, 0.00, 1)
 
-VAR_rRa = linspace(-0.20, 0.20, num_of_divs)
+VAR_rRa = linspace(-0.20, 0.20, 1)
 VAR_rRb = linspace(-0.20, 0.20, num_of_divs)
-VAR_dR  = linspace( 0.00, 0.05, num_of_divs)
+VAR_dR  = linspace( 0.00, 0.00, 1)
 
 
 
@@ -227,6 +227,9 @@ total_iterations = length(VAR_mh) ...
 log.fatal(sprintf('Total iterations: %i', total_iterations))
 fprintf('\n\n\n')
 iteration_number = 0;
+
+days_rough_estimate = (4/700)*(1/60)*(1/24) * total_iterations
+
 
 % Starting iteration timer
 iteration_timer = tic;
