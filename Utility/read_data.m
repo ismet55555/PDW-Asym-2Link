@@ -17,7 +17,6 @@ StableGait = size(hit)
 %Max = [max(data(:,1)) max(data(:,2)) max(data(:,3)) max(data(:,4)) max(data(:,5))]
 %Min = [min(data(:,1)) min(data(:,2)) min(data(:,3)) min(data(:,4)) min(data(:,5))]
 
-
 % figure
 % plot3( data(:,2), data(:,4), data(:,5), '.y')
 % hold on
@@ -62,17 +61,6 @@ StableGait = size(hit)
 %                mean(hit(:,3))+std(hit(:,3)), mean(hit(:,4))+std(hit(:,4)), ...
 %                mean(hit(:,5))+std(hit(:,5))]
 
-      
-           
-           
-          
-
-
-
-
-
-
-
 %Plotting foot change rate vs vertical foot reaction force
 figure
 hit_1 = hit(hit(:,5) == 0.0650, :);
@@ -112,12 +100,6 @@ title('PDW Maximum Vertical Ground Reaction Force', 'FontSize',14, 'FontName','T
 h_legend = legend();
 set(h_legend,'FontSize',10, 'FontName','Times New Roman');
 set(gcf,'position', [771   614   711   315])
-
-
-
-
-
-
 
 
 %Plotting foot change rate vs horizontal foot reaction force
@@ -161,19 +143,6 @@ set(gcf,'position', [771   614   711   315])
 % toc
 
 
-
-% figure
-% plot(hit_1(:,10), (hit_1(:,19)+hit_1(:,20))/2, '.k')
-% hold on
-% plot(hit_1(:,10), hit_1(:,14), '.b')
-% 
-% axis([-0.2 0 0 1.8])
-% grid on
-
-
-
-
-
 %Plotting foot change rate vs work/meter walked
 figure
 hit_1 = hit(hit(:,5) == 0.0650, :);
@@ -212,18 +181,3 @@ title('PDW Walking Energy Expendature', 'FontSize',14, 'FontName','Times New Rom
 %h_legend = legend();
 %set(h_legend,'FontSize',10, 'FontName','Times New Roman');
 set(gcf,'position', [771   614   711   315])
-
-
-
-
-% figure
-% plot((hit_1(:,19)+hit_1(:,20))/2, hit_1(:,14), '.b')
-% grid on
-
-% for i = 1:length(hit(:,1))
-%     fid = fopen('hit.txt','a');
-%     fprintf(fid, '%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t%6.4f\t\r\n', ...
-%         hit(i,1),  hit(i,2), hit(i,3), hit(i,4), hit(i,5), hit(i,6), hit(i,7),  hit(i,8), hit(i,9), hit(i,10), hit(i,11) );
-%     fclose(fid);
-% end
-
